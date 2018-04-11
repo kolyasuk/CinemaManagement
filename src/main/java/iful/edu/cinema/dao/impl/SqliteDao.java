@@ -3,7 +3,6 @@ package iful.edu.cinema.dao.impl;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -74,7 +73,7 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public List<CinemaSession> getCurrentCinemaSessions() {
-		String sql = "select * from sessionView";
+		String sql = "select * from sessionView ORDER BY session_date, session_time ASC";
 		return jdbcTemplate.query(sql, new RowMapper() {
 
 			@Override
@@ -88,7 +87,7 @@ public class SqliteDao implements CinemaSessionDao {
 				session.setHall_id(rs.getInt("hall_id"));
 				session.setHall_name(rs.getString("hall_name"));
 				session.setShow_date(Date.valueOf(rs.getString("session_date")));
-				session.setShow_time(Time.valueOf(rs.getString("session_time")));
+				session.setShow_time(rs.getString("session_time"));
 				session.setTicket_price(rs.getInt("ticket_price"));
 
 				return session;
@@ -97,9 +96,60 @@ public class SqliteDao implements CinemaSessionDao {
 	}
 
 	@Override
+	public CinemaSession getCinemaSessionByID(int id) {
+		String sql = "select * from session where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+
+		return jdbcTemplate.queryForObject(sql, paramMap, new RowMapper<CinemaSession>() {
+
+			@Override
+			public CinemaSession mapRow(ResultSet rs, int rowNum) throws SQLException {
+				CinemaSession session = new CinemaSession();
+				session.setId(rs.getInt("id"));
+				session.setCinema_id(rs.getInt("cinema_id"));
+				session.setFilm_id(rs.getInt("film_id"));
+				session.setHall_id(rs.getInt("hall_id"));
+				session.setShow_date(Date.valueOf(rs.getString("date")));
+				session.setShow_time(rs.getString("time"));
+				session.setTicket_price(rs.getInt("ticket_price"));
+
+				return session;
+			}
+		});
+	}
+
+	@Override
+	public void inputSession(CinemaSession session) {
+		String sql = "insert into session (film_id, cinema_id, hall_id, date, time, ticket_price) VALUES (:film_id, :cinema_id, :hall_id, :date, :time, :ticket_price)";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("film_id", session.getFilm_id());
+		paramMap.addValue("cinema_id", session.getCinema_id());
+		paramMap.addValue("hall_id", session.getHall_id());
+		paramMap.addValue("date", session.getShow_date().toString());
+		paramMap.addValue("time", session.getShow_time().toString());
+		paramMap.addValue("ticket_price", session.getTicket_price());
+
+		jdbcTemplate.update(sql, paramMap);
+
+	}
+
+	@Override
 	public void deleteSessionById(int id) {
 		String sql = "delete from session where id=:id";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public void updateSession(CinemaSession session) {
+		String sql = "update session set film_id=:film_id, cinema_id=:cinema_id, hall_id=:hall_id, date=:date, time=:time, ticket_price=:ticket_price where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", session.getId());
+		paramMap.addValue("film_id", session.getFilm_id());
+		paramMap.addValue("cinema_id", session.getCinema_id());
+		paramMap.addValue("hall_id", session.getHall_id());
+		paramMap.addValue("date", session.getShow_date().toString());
+		paramMap.addValue("time", session.getShow_time().toString());
+		paramMap.addValue("ticket_price", session.getTicket_price());
 		jdbcTemplate.update(sql, paramMap);
 	}
 
@@ -159,15 +209,16 @@ public class SqliteDao implements CinemaSessionDao {
 	}
 
 	@Override
-	public void inputSession(CinemaSession session) {
-		String sql = "insert into session (film_id, cinema_id, hall_id, date, time, ticket_price) VALUES (:film_id, :cinema_id, :hall_id, :date, :time, :ticket_price)";
+	public void inputFilm(Film film) {
+		String sql = "insert into film (name, year, director, country, movie_length, image, description) VALUES (:name, :year, :director, :country, :movie_length, :image, :description)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
-		paramMap.addValue("film_id", session.getFilm_id());
-		paramMap.addValue("cinema_id", session.getCinema_id());
-		paramMap.addValue("hall_id", session.getHall_id());
-		paramMap.addValue("date", session.getShow_date().toString());
-		paramMap.addValue("time", session.getShow_time().toString());
-		paramMap.addValue("ticket_price", session.getTicket_price());
+		paramMap.addValue("name", film.getName());
+		paramMap.addValue("year", film.getYear());
+		paramMap.addValue("director", film.getDirector());
+		paramMap.addValue("country", film.getCountry());
+		paramMap.addValue("movie_length", film.getMovie_length());
+		paramMap.addValue("description", film.getDescription());
+		paramMap.addValue("image", film.getImage());
 
 		jdbcTemplate.update(sql, paramMap);
 

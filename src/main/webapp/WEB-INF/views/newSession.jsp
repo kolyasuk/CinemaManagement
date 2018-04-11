@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,38 +13,41 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="POST" name="frmAddUser" action="/cinema/inputingSession">
-		<div class="form-row">
+<a href="/cinema/"> Back</a><br>
+	<form:form method="POST" name="frmAddUser" commandName="session" action="/cinema/addOrEditSession">
+		<div class="form-row">		
 			<div class="col">
-				<select class="form-control" name="film">
+				<form:input path="id" name="id" value="${session.id}"></form:input>
+			</div>
+			<div class="col">
+				<form:select class="form-control" path="film_id" name="film" title="Select film here">
 					<c:forEach var="film" items="${filmList}">
-						<option value="${film.id}">${film.name}</option>
+						<option title="Click to select" <c:if test="${film.id == session.film_id}">selected style="color: red;" </c:if> value="${film.id}">${film.name}</option>
 					</c:forEach>
-				</select>
+				</form:select>
 			</div>
 			<div class="col">
-				<select class="form-control" name="cinema">
+				<form:select class="form-control" path="cinema_id" name="cinema" title="Select cinema here">
 					<c:forEach var="cinema" items="${cinemaList}">
-						<option value="${cinema.id}">${cinema.name}</option>
+						<option title="Click to select" <c:if test="${cinema.id == session.cinema_id}">selected style="color: red;"</c:if> value="${cinema.id}">${cinema.name}</option>
 					</c:forEach>
-				</select>
+				</form:select>
 			</div>
 			<div class="col">
-				<select class="form-control" name="hall">
+				<form:select class="form-control" path="hall_id"  name="hall" title="Select hall here">
 					<c:forEach var="hall" items="${hallList}">
-						<option value="${hall.id}">${hall.name}</option>
+						<option title="Click to select" <c:if test="${hall.id == session.hall_id}">selected style="color: red;"</c:if> value="${hall.id}">${hall.name}</option>
 					</c:forEach>
-				</select>
+				</form:select>
 			</div>
 			<div class="col">
-				<input type="date" name="date">
+				<input type="date" name="date" value="${session.show_date}"  title="Input date here">
 			</div>
 			<div class="col">
-				<input type="time" name="time">
-				</p>
+				<input type="time" name="time" value="${session.show_time}" title="Input time here">
 			</div>
 			<div class="col">
-				<input type="number" value="35" name="ticket_price" step="1">
+				<input type="number" name="ticket_price" value="${session.ticket_price}" step="1" title="Input price here">
 			</div>
 
 
@@ -53,6 +57,6 @@
 
 
 		</div>
-	</form>
+	</form:form>
 </body>
 </html>

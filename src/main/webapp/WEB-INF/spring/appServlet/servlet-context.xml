@@ -31,6 +31,10 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 	p:driverClassName="org.sqlite.JDBC" p:url="jdbc:sqlite:C:\Users\dziob\eclipse-workspace\CinemaManagement\db\CinemaMgmt.db" p:username="" p:password=""/>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		
+	</bean>
 
 
 </beans>

@@ -1,6 +1,5 @@
 package iful.edu.cinema.objects;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class CinemaSession {
@@ -13,8 +12,8 @@ public class CinemaSession {
 	private int hall_id;
 	private String hall_name;
 	private Date show_date;
-	private Time show_time;
-	private double ticket_price;
+	private String show_time;
+	private int ticket_price;
 
 	public int getId() {
 		return id;
@@ -48,19 +47,19 @@ public class CinemaSession {
 		this.show_date = show_date;
 	}
 
-	public Time getShow_time() {
+	public String getShow_time() {
 		return show_time;
 	}
 
-	public void setShow_time(Time show_time) {
+	public void setShow_time(String show_time) {
 		this.show_time = show_time;
 	}
 
-	public double getTicket_price() {
+	public int getTicket_price() {
 		return ticket_price;
 	}
 
-	public void setTicket_price(double ticket_price) {
+	public void setTicket_price(int ticket_price) {
 		this.ticket_price = ticket_price;
 	}
 

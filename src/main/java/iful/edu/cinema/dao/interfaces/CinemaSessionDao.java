@@ -11,13 +11,19 @@ public interface CinemaSessionDao {
 
 	void inputSession(CinemaSession session);
 
+	void updateSession(CinemaSession session);
+
 	void deleteSessionById(int id);
+
+	List<CinemaSession> getCurrentCinemaSessions();
+
+	CinemaSession getCinemaSessionByID(int id);
+
+	void inputFilm(Film film);
 
 	Cinema getCinemaByID(int id);
 
 	Film getFilmByID(int id);
-
-	List<CinemaSession> getCurrentCinemaSessions();
 
 	List<Film> getFilmList();
 
