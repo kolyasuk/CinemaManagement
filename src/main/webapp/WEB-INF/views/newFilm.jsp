@@ -6,7 +6,6 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -18,55 +17,59 @@
 			<spring:message text="Name:" />
 		</form:label>
 		<form:input cssClass="stle" path="name" name="name" />
-		</br>
+		<br>
 		<form:errors path="name" cssStyle="color:red;"></form:errors>
-		</br>
+		<br>
 
 		<form:label path="year">
 			<spring:message text="Year:" />
 		</form:label>
 		<form:input cssClass="stle" path="year" name="year"/>
-		</br>
+		<br>
 		<form:errors path="year" cssStyle="color:red;"></form:errors>
-		</br>
+		<br>
 
 		<form:label path="director">
 			<spring:message text="Director:" />
 		</form:label>
 		<form:input cssClass="stle" path="director" name="director" />
-		</br>
+		<br>
 		<form:errors path="director" cssStyle="color:red;"></form:errors>
-		</br>
+		<br>
 
 		<form:label path="country">
 			<spring:message text="Country:" />
 		</form:label>
 		<form:input cssClass="stle" path="country" name="country"/>
-		</br>
+		<br>
 		<form:errors path="country" cssStyle="color:red;"></form:errors>
-		</br>
+		<br>
 
 		<form:label path="description">
 			<spring:message text="Description:" />
 		</form:label>
 		<form:textarea cols="50" rows="10" cssClass="stle" path="description" name="description"/>
-		</br>
+		<br>
 		<form:errors path="description" cssStyle="color:red;"></form:errors>
-		</br>
+		<br>
 
 		<form:label path="movie_length">
 			<spring:message text="Length:" />
 		</form:label>
 		<form:input cssClass="stle" path="movie_length" name="movie_length" />
-		</br>
+		<br>
 		<form:errors path="movie_length" cssStyle="color:red;"></form:errors>
-		</br>
+		<br>
 		
 
+		<form:label path="image">
+			<spring:message text="Image:" />
+		</form:label>
 		<input type="file" accept="image/*" name="file"/>
+		<br>
 
-		<button type="submit" id="login-button" title="Click to login" onclick="return validation()">
-			<spring:message text="InsertFile" />
+		<button type="submit" title="Click to add film" onclick="return validation()">
+			<spring:message text="Insert" />
 		</button>
 	</form:form>
 

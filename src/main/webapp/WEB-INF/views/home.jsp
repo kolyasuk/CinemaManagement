@@ -10,14 +10,14 @@
 <title>Home</title>
 </head>
 <body>
-	<h3 style="text-align: center;">Current sessions:  <a href="addSession/" title="Add session">+</a></h3>
+	<h3 style="text-align: center;">Current sessions:  <a href="newSession/" title="Add session">+</a></h3>
 	<table class="table table-hover" style="width: 80%; margin: auto;">
 		<thead class="thead-dark">
 			<tr >
 				<th scope="col">id</th>
-				<th scope="col"><a href="?order_by=film_name">Film </a><a href="#" title="Film list">▤</a> <a href="addFilm" title="Add film">+</a></th>
-				<th scope="col">Cinema <a href="#" title="Cinema list">▤</a> <a href="#" title="Add cinema">+</a></th>
-				<th scope="col">Hall <a href="#" title="Hall list">▤</a> <a href="#" title="Add hall">+</a></th>
+				<th scope="col"><a href="?order_by=film_name">Film </a><a href="#" title="Film list">▤</a> <a href="newFilm" title="Add film">+</a></th>
+				<th scope="col">Cinema <a href="#" title="Cinema list">▤</a> <a href="newCinema" title="Add cinema">+</a></th>
+				<th scope="col">Hall <a href="#" title="Hall list">▤</a> <a href="newHall" title="Add hall">+</a></th>
 				<th scope="col">Date</th>
 				<th scope="col">Time</th>
 				<th scope="col">Price</th>

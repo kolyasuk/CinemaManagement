@@ -202,6 +202,9 @@ public class SqliteDao implements CinemaSessionDao {
 				Hall hall = new Hall();
 				hall.setId(rs.getInt("id"));
 				hall.setName(rs.getString("name"));
+				hall.setFloor(rs.getInt("floor"));
+				hall.setDescription(rs.getString("description"));
+				hall.setCinema_id(rs.getInt("cinema_id"));
 
 				return hall;
 			}
@@ -221,6 +224,37 @@ public class SqliteDao implements CinemaSessionDao {
 		paramMap.addValue("image", film.getImage());
 
 		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public void inputCinema(Cinema cinema) {
+		String sql = "insert into cinema (name, image, address, description) VALUES (:name, :image, :address, :description)";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+
+		paramMap.addValue("name", cinema.getName());
+		paramMap.addValue("image", cinema.getImage());
+		paramMap.addValue("address", cinema.getAddress());
+		paramMap.addValue("description", cinema.getDescription());
+
+		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public void inputHall(Hall hall) {
+		String sql = "insert into hall (name, floor, description, cinema_id) VALUES (:name, :floor, :description, :cinema_id)";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource();
+		paramMap.addValue("name", hall.getName());
+		paramMap.addValue("floor", hall.getFloor());
+		paramMap.addValue("description", hall.getDescription());
+		paramMap.addValue("cinema_id", hall.getCinema_id());
+
+		jdbcTemplate.update(sql, paramMap);
+
+	}
+
+	@Override
+	public void updateFilm(Film film) {
+		// TODO Auto-generated method stub
 
 	}
 

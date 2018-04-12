@@ -29,14 +29,18 @@
 			<div class="col">
 				<form:select class="form-control" path="cinema_id" name="cinema" title="Select cinema here">
 					<c:forEach var="cinema" items="${cinemaList}">
+
 						<option title="Click to select" <c:if test="${cinema.id == session.cinema_id}">selected style="color: red;"</c:if> value="${cinema.id}">${cinema.name}</option>
+
 					</c:forEach>
 				</form:select>
 			</div>
 			<div class="col">
 				<form:select class="form-control" path="hall_id"  name="hall" title="Select hall here">
 					<c:forEach var="hall" items="${hallList}">
-						<option title="Click to select" <c:if test="${hall.id == session.hall_id}">selected style="color: red;"</c:if> value="${hall.id}">${hall.name}</option>
+						<c:if test="${session.cinema_id == hall.cinema_id || session.cinema_id==0}">	<!-- show halls of current cinema -->
+							<option title="Click to select" <c:if test="${hall.id == session.hall_id}">selected style="color: red;"</c:if> value="${hall.id}">${hall.name}</option>
+						</c:if>
 					</c:forEach>
 				</form:select>
 			</div>

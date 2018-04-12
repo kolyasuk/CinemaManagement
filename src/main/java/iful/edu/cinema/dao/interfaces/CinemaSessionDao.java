@@ -21,13 +21,19 @@ public interface CinemaSessionDao {
 
 	void inputFilm(Film film);
 
-	Cinema getCinemaByID(int id);
+	void updateFilm(Film film);
 
 	Film getFilmByID(int id);
 
 	List<Film> getFilmList();
 
+	void inputCinema(Cinema cinema);
+
+	Cinema getCinemaByID(int id);
+
 	List<Cinema> getCinemaList();
+
+	void inputHall(Hall hall);
 
 	List<Hall> getHallList();
 

@@ -6,11 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,15 +28,18 @@ import iful.edu.cinema.objects.Hall;
 @Controller
 public class HomeController {
 
+	static SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+	private static final Date CURRENT_DATE = Date.valueOf(dt1.format(new java.util.Date()));
+	private static final String CURRENT_TIME = "08:00";
+
 	@Autowired
 	private SqliteDao sqliteDao;
 
 	@RequestMapping(value = "/")
-	public ModelAndView sessionList(ModelAndView md, HttpServletRequest request) {
+	public String sessionList(ModelMap mp) {
 		List<CinemaSession> list = sqliteDao.getCurrentCinemaSessions();
-		md.addObject("list", list);
-		md.setViewName("home");
-		return md;
+		mp.addAttribute("list", list);
+		return "home";
 	}
 
 	@RequestMapping(value = "/?order_by", method = RequestMethod.GET)
@@ -47,55 +50,50 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/filmDetails", method = RequestMethod.GET)
-	public ModelAndView filmDetails(@RequestParam("film_id") int id, ModelAndView md, HttpServletRequest request) {
+	public String filmDetails(@RequestParam("film_id") int id, ModelMap mp) {
 		Film film = sqliteDao.getFilmByID(id);
-		md.addObject("film", film);
-		md.setViewName("film");
-		return md;
+		mp.addAttribute("film", film);
+		return "film";
 	}
 
 	@RequestMapping(value = "/cinemaDetails", method = RequestMethod.GET)
-	public ModelAndView cinemaDetails(@RequestParam("cinema_id") int id, ModelAndView md, HttpServletRequest request) {
+	public String cinemaDetails(@RequestParam("cinema_id") int id, ModelMap mp) {
 		Cinema cinema = sqliteDao.getCinemaByID(id);
-		md.addObject("cinema", cinema);
-		md.setViewName("cinema");
-		return md;
+		mp.addAttribute("cinema", cinema);
+		return "cinema";
 	}
 
-	@RequestMapping(value = "/addSession")
-	public ModelAndView addSession(@ModelAttribute("session") CinemaSession cinemaSession, ModelAndView md, HttpServletRequest request) {
+	@RequestMapping(value = "/newSession", method = RequestMethod.GET)
+	public String addSession(@ModelAttribute("session") CinemaSession cinemaSession, ModelMap mp) {
 		List<Film> filmList = sqliteDao.getFilmList();
 		List<Cinema> cinemaList = sqliteDao.getCinemaList();
 		List<Hall> hallList = sqliteDao.getHallList();
-		md.addObject("filmList", filmList);
-		md.addObject("cinemaList", cinemaList);
-		md.addObject("hallList", hallList);
+		mp.addAttribute("filmList", filmList);
+		mp.addAttribute("cinemaList", cinemaList);
+		mp.addAttribute("hallList", hallList);
 
-		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-		cinemaSession.setShow_date(Date.valueOf(dt1.format(new java.util.Date())));
+		cinemaSession.setShow_date(CURRENT_DATE);
 
-		cinemaSession.setShow_time("10:00");
+		cinemaSession.setShow_time(CURRENT_TIME);
 
-		md.setViewName("newSession");
-		return md;
+		return "newSession";
 	}
 
-	@RequestMapping(value = "/editSession")
-	public ModelAndView editSession(@RequestParam("session_id") int id, ModelAndView md, HttpServletRequest request) {
+	@RequestMapping(value = "/editSession", method = RequestMethod.GET)
+	public String editSession(@RequestParam("session_id") int id, ModelMap mp) {
 		CinemaSession cinemaSession = sqliteDao.getCinemaSessionByID(id);
 		List<Film> filmList = sqliteDao.getFilmList();
 		List<Cinema> cinemaList = sqliteDao.getCinemaList();
 		List<Hall> hallList = sqliteDao.getHallList();
-		md.addObject("session", cinemaSession);
-		md.addObject("filmList", filmList);
-		md.addObject("cinemaList", cinemaList);
-		md.addObject("hallList", hallList);
-		md.setViewName("newSession");
-		return md;
+		mp.addAttribute("session", cinemaSession);
+		mp.addAttribute("filmList", filmList);
+		mp.addAttribute("cinemaList", cinemaList);
+		mp.addAttribute("hallList", hallList);
+		return "newSession";
 	}
 
-	@RequestMapping(value = "/addOrEditSession")
-	public ModelAndView addOREditSession(@ModelAttribute("session") CinemaSession cinemaSession, ModelAndView md, HttpServletRequest request) {
+	@RequestMapping(value = "/addOrEditSession", method = RequestMethod.POST)
+	public String addOREditSession(@ModelAttribute("session") CinemaSession cinemaSession, HttpServletRequest request) {
 		cinemaSession.setShow_date(Date.valueOf(request.getParameter("date")));
 		cinemaSession.setShow_time(request.getParameter("time"));
 		cinemaSession.setTicket_price(Integer.valueOf(request.getParameter("ticket_price")));
@@ -104,25 +102,23 @@ public class HomeController {
 		} else {
 			sqliteDao.inputSession(cinemaSession);
 		}
-		md.setViewName("redirect:/");
-		return md;
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/deleteSession")
-	public ModelAndView deleteSession(@RequestParam("session_id") int id, ModelAndView md, HttpServletRequest request) {
+	public String deleteSession(@RequestParam("session_id") int id) {
 		sqliteDao.deleteSessionById(id);
-		md.setViewName("redirect:/");
-		return md;
+		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/addFilm")
-	public ModelAndView addFilm(@ModelAttribute("film") Film film, HttpServletRequest request, HttpServletResponse responce) {
+	@RequestMapping(value = "/newFilm", method = RequestMethod.GET)
+	public String addFilm(@ModelAttribute("film") Film film) {
 		film.setMovie_length("00:00:00");
 
-		return new ModelAndView("newFilm");
+		return "newFilm";
 	}
 
-	@RequestMapping(value = "/addingFilm")
+	@RequestMapping(value = "/addingFilm", method = RequestMethod.POST)
 	public ModelAndView addingFilm(@Valid @ModelAttribute("film") Film film, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
 		System.out.println(bindingResult.getFieldError());
 		if (!bindingResult.hasErrors()) {
@@ -136,9 +132,38 @@ public class HomeController {
 
 			return new ModelAndView("redirect:/");
 		}
-
 		return new ModelAndView("newFilm");
+	}
 
+	@RequestMapping(value = "/newCinema", method = RequestMethod.GET)
+	public String newCinema(@ModelAttribute("cinema") Cinema cinema, ModelMap mp) {
+		return "newCinema";
+	}
+
+	@RequestMapping(value = "/addingCinema", method = RequestMethod.POST)
+	public String addingCinema(@ModelAttribute("cinema") Cinema cinema, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
+		try {
+			cinema.setImage(file.getBytes());
+			sqliteDao.inputCinema(cinema);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/newHall", method = RequestMethod.GET)
+	public String newHall(@ModelAttribute("hall") Hall hall, ModelMap mp) {
+		List<Cinema> cinemaList = sqliteDao.getCinemaList();
+		mp.addAttribute("cinemaList", cinemaList);
+		return "newHall";
+	}
+
+	@RequestMapping(value = "/addingHall", method = RequestMethod.POST)
+	public String addingHall(@ModelAttribute("hall") Hall hall, BindingResult bindingResult) {
+		sqliteDao.inputHall(hall);
+
+		return "redirect:/";
 	}
 
 }
