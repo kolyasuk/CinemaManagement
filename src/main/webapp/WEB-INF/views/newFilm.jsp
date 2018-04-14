@@ -9,8 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="/cinema/"> Back</a>
-	<br>
+<a href="/cinema/">Home</a><br>
 	<form:form name="filmForm" action="addingFilm" commandName="film"
 		enctype="multipart/form-data" method="POST">
 		<form:label path="name">

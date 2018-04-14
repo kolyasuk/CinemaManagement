@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/cinema/"> Back</a><br>
+<a href="/cinema/">Home</a><br>
 	<form:form method="POST" name="frmAddUser" commandName="session" action="/cinema/addOrEditSession">
 		<div class="form-row">		
 			<div class="col">

@@ -227,6 +227,13 @@ public class SqliteDao implements CinemaSessionDao {
 	}
 
 	@Override
+	public void deleteFilmById(int id) {
+		String sql = "delete from film where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
 	public void inputCinema(Cinema cinema) {
 		String sql = "insert into cinema (name, image, address, description) VALUES (:name, :image, :address, :description)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
@@ -240,6 +247,14 @@ public class SqliteDao implements CinemaSessionDao {
 	}
 
 	@Override
+	public void deleteCinemaById(int id) {
+		String sql = "delete from Cinema where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+		jdbcTemplate.update(sql, paramMap);
+
+	}
+
+	@Override
 	public void inputHall(Hall hall) {
 		String sql = "insert into hall (name, floor, description, cinema_id) VALUES (:name, :floor, :description, :cinema_id)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
@@ -248,6 +263,14 @@ public class SqliteDao implements CinemaSessionDao {
 		paramMap.addValue("description", hall.getDescription());
 		paramMap.addValue("cinema_id", hall.getCinema_id());
 
+		jdbcTemplate.update(sql, paramMap);
+
+	}
+
+	@Override
+	public void deleteHallById(int id) {
+		String sql = "delete from Hall where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
 		jdbcTemplate.update(sql, paramMap);
 
 	}

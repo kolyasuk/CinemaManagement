@@ -1,12 +1,23 @@
 package iful.edu.cinema.objects;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
+
 public class Hall {
 
 	private int id;
-	private int cinema_id;
+
+	@Size(min = 3, max = 20, message = "Name must be between {min} and {max}.")
 	private String name;
+
+	@Min(value = 0, message = "Select floor, please.")
 	private int floor;
+
+	@Size(min = 15, message = "Description should be longer {min}.")
 	private String description;
+
+	@Min(value = 1, message = "Select cinema, please.")
+	private int cinema_id;
 
 	public int getId() {
 		return id;

@@ -23,17 +23,23 @@ public interface CinemaSessionDao {
 
 	void updateFilm(Film film);
 
+	void deleteFilmById(int id);
+
 	Film getFilmByID(int id);
 
 	List<Film> getFilmList();
 
 	void inputCinema(Cinema cinema);
 
+	void deleteCinemaById(int id);
+
 	Cinema getCinemaByID(int id);
 
 	List<Cinema> getCinemaList();
 
 	void inputHall(Hall hall);
+
+	void deleteHallById(int id);
 
 	List<Hall> getHallList();
 
