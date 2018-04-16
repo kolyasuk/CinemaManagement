@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.error {
+	color: red;
+	visibility: hidden;
+	transition: all .3s;
+	opacity: 0;
+	transform: translateX(-10px);
+	display: block;
+}
+
+.show {
+	visibility: visible;
+	opacity: 1;
+	transform: translateX(10px);
+}

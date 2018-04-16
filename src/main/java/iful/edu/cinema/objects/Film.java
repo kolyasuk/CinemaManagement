@@ -1,31 +1,33 @@
 package iful.edu.cinema.objects;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 public class Film {
 
 	private int id;
 
-	@Size(min = 1, message = "Input film name")
 	private String name;
 
-	@Min(value = 1895, message = "Input correct year")
+	// @Min(value = 1895, message = "Input correct year")
 	private int year;
 
-	@Size(min = 2, message = "Input correct director name")
+	// @Size(min = 2, message = "Input correct director name")
 	private String director;
 
-	@Size(min = 2, message = "Input correct country")
-	@Pattern(regexp = "^[A-Za-zА-Яа-яЇїІі]*$", message = "Must match only letters")
+	/*
+	 * @Size(min = 2, message = "Input correct country")
+	 * 
+	 * @Pattern(regexp = "^[A-Za-zА-Яа-яЇїІі]*$", message =
+	 * "Must match only letters")
+	 */
 	private String country;
 
-	@Size(min = 15, message = "Minimum size is 15")
+	// @Size(min = 15, message = "Minimum size is 15")
 	private String description;
 
-	@Size(min = 8, message = "Input correct length")
-	@Pattern(regexp = "^[0-9:0-9:0-9]*$", message = "Input like: 01:45:00")
+	/*
+	 * @Size(min = 8, message = "Input correct length")
+	 * 
+	 * @Pattern(regexp = "^[0-9:0-9:0-9]*$", message = "Input like: 01:45:00")
+	 */
 	private String movie_length;
 
 	private byte[] image;

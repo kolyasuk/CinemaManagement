@@ -10,7 +10,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<title>Insert title here</title>
+<title>Add new session</title>
 </head>
 <body>
 <a href="/cinema/">Home</a><br>
@@ -20,14 +20,14 @@
 				<form:input path="id" name="id" value="${session.id}"></form:input>
 			</div>
 			<div class="col">
-				<form:select class="form-control" path="film_id" name="film" title="Select film here">
+				<form:select class="form-control" path="film_id" name="filmName" title="Select film here">
 					<c:forEach var="film" items="${filmList}">
 						<option title="Click to select" <c:if test="${film.id == session.film_id}">selected style="color: red;" </c:if> value="${film.id}">${film.name}</option>
 					</c:forEach>
 				</form:select>
 			</div>
 			<div class="col">
-				<form:select class="form-control" path="cinema_id" name="cinema" title="Select cinema here">
+				<form:select class="form-control" path="cinema_id" name="cinemaName" title="Select cinema here">
 					<c:forEach var="cinema" items="${cinemaList}">
 
 						<option title="Click to select" <c:if test="${cinema.id == session.cinema_id}">selected style="color: red;"</c:if> value="${cinema.id}">${cinema.name}</option>
@@ -36,9 +36,9 @@
 				</form:select>
 			</div>
 			<div class="col">
-				<form:select class="form-control" path="hall_id"  name="hall" title="Select hall here">
+				<form:select class="form-control" path="hall_id"  name="hallName" title="Select hall here">
 					<c:forEach var="hall" items="${hallList}">
-						<c:if test="${session.cinema_id == hall.cinema_id || session.cinema_id==0}">	<!-- show halls of current cinema -->
+						<c:if test="${true}">	<!-- show halls of current cinema -->
 							<option title="Click to select" <c:if test="${hall.id == session.hall_id}">selected style="color: red;"</c:if> value="${hall.id}">${hall.name}</option>
 						</c:if>
 					</c:forEach>
@@ -58,9 +58,8 @@
 			<div class="col">
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
-
-
 		</div>
 	</form:form>
+
 </body>
 </html>

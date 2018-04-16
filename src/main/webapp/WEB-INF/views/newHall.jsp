@@ -6,11 +6,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/style.css"/>">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Add new hall</title>
 </head>
 <body>
-<a href="/cinema/">Home</a><br>
+<a href="/cinema/">Home</a><a href="hallList">Hall List</a>
+<br>
 	<form:form method="POST" commandName="hall" action="addingHall">
 	
 		<form:label path="name">
@@ -18,24 +21,24 @@
 		</form:label>
 		<form:input path="name" />
 		<br>
-		<form:errors path="name"></form:errors>
-		<br>
+		<form:errors path="name" cssClass="error show"></form:errors>
+
 		
 		<form:label path="floor">
 			<spring:message text="Floor:" />
 		</form:label>
 		<form:input path="floor" type="number" min="0"/>
 		<br>
-		<form:errors path="floor"></form:errors>
-		<br>
+		<form:errors path="floor" cssClass="error show"></form:errors>
+
 		
 		<form:label path="description">
 			<spring:message text="Description:" />
 		</form:label>
 		<form:textarea path="description"/>
 		<br>
-		<form:errors path="description"></form:errors>
-		<br>
+		<form:errors path="description" cssClass="error show"></form:errors>
+
 
 		<form:label path="cinema_id">
 			<spring:message text="Cinema:" />
@@ -47,8 +50,8 @@
 			</c:forEach>
 		</form:select>
 		<br>
-		<form:errors path="cinema_id"></form:errors>
-		<br>
+		<form:errors path="cinema_id" cssClass="error show"></form:errors>
+
 
 		<button type="submit" title="Click to add hall">Insert</button>
 	</form:form>

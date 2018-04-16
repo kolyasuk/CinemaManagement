@@ -6,89 +6,116 @@
 <!DOCTYPE>
 <html>
 <head>
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/style.css"/>">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Add new film</title>
 </head>
 <body>
-<a href="/cinema/">Home</a><br>
+	<a href="/cinema/">Home</a>
+	<a href="filmList">Film List</a>
+	<br>
 	<form:form name="filmForm" action="addingFilm" commandName="film"
 		enctype="multipart/form-data" method="POST">
 		<form:label path="name">
 			<spring:message text="Name:" />
 		</form:label>
-		<form:input cssClass="stle" path="name" name="name" />
+		<form:input path="name" name="name"/>
 		<br>
-		<form:errors path="name" cssStyle="color:red;"></form:errors>
-		<br>
+		<span id="error0" class="error">Input name, please!</span>
 
 		<form:label path="year">
-			<spring:message text="Year:" />
+			<spring:message text="Year:"/>
 		</form:label>
-		<form:input cssClass="stle" path="year" name="year"/>
+		<form:input path="year" name="year"/>
 		<br>
-		<form:errors path="year" cssStyle="color:red;"></form:errors>
-		<br>
+		<span id="error1" class="error">Input correct year.</span>
 
 		<form:label path="director">
-			<spring:message text="Director:" />
+			<spring:message text="Director:"/>
 		</form:label>
-		<form:input cssClass="stle" path="director" name="director" />
+		<form:input  path="director" name="director"/>
 		<br>
-		<form:errors path="director" cssStyle="color:red;"></form:errors>
-		<br>
+		<span id="error2" class="error">Input director, please!</span>
 
 		<form:label path="country">
-			<spring:message text="Country:" />
+			<spring:message text="Country:"/>
 		</form:label>
-		<form:input cssClass="stle" path="country" name="country"/>
+		<form:input path="country" name="country"/>
 		<br>
-		<form:errors path="country" cssStyle="color:red;"></form:errors>
-		<br>
+		<span id="error3" class="error">Input country, please!</span>
 
 		<form:label path="description">
-			<spring:message text="Description:" />
+			<spring:message text="Description:"/>
 		</form:label>
-		<form:textarea cols="50" rows="10" cssClass="stle" path="description" name="description"/>
+		<form:textarea cols="50" rows="10" path="description" name="description"/>
 		<br>
-		<form:errors path="description" cssStyle="color:red;"></form:errors>
-		<br>
+		<span id="error4" class="error">Minimum size of description is 15.</span>
 
 		<form:label path="movie_length">
 			<spring:message text="Length:" />
 		</form:label>
-		<form:input cssClass="stle" path="movie_length" name="movie_length" />
+		<form:input path="movie_length" name="movie_length" />
 		<br>
-		<form:errors path="movie_length" cssStyle="color:red;"></form:errors>
-		<br>
-		
+		<span id="error5" class="error">Input correct length! Pattern: hh:mm:ss.</span>
+
 
 		<form:label path="image">
 			<spring:message text="Image:" />
 		</form:label>
-		<input type="file" accept="image/*" name="file"/>
+		<input type="file" accept="image/*" name="file" />
 		<br>
+		<span id="error6" class="error">Input image, please!</span>
 
-		<button type="submit" title="Click to add film" onclick="return validation()">
+		<button type="submit" title="Click to add film">
 			<spring:message text="Insert" />
 		</button>
 	</form:form>
 
 
 	<script type="text/javascript">
-		function validation() {
-			var a = 0;
-			var name = document.forms["filmForm"]["name"].value;
-			var year = document.forms["filmForm"]["year"].value;
-			var director = document.forms["filmForm"]["director"].value;
-			var country = document.forms["filmForm"]["country"].value;
-			var description = document.forms["filmForm"]["description"].value;
-			var movie_length = document.forms["filmForm"]["movie_length"].value;
+		const formElem = document.getElementsByName('filmForm')[0];
+		formElem.onsubmit = validate;
+
+		function validate(event) {
+			const nameElem = document.getElementsByName('name')[0].value.length;
+		    const yearElem = document.getElementsByName('year')[0].value;
+		    const directorElem = document.getElementsByName('director')[0].value.length;
+		    const countryElem = document.getElementsByName('country')[0].value.length;
+		    const descriptionElem = document.getElementsByName('description')[0].value.length;
+		    const movie_lengthElem = document.getElementsByName('movie_length')[0].value;
+		    const fileElem = document.getElementsByName('file')[0].value.length;
+		    
+			if (nameElem < 1) {
+				document.getElementById("error0").classList.add("show");
+			}else document.getElementById("error0").classList.remove("show");
 			
-			if (name.length>0 && year.length>0 && director.length>0 && country.length>0 && description.length>15 && movie_length.length>0) {
-				var x = document.forms["filmForm"]["file"].value;
-				if (x == null || x == "") {
-					alert("Please, select film image");
-					return false;
-				}
+			if (yearElem < 1895) {
+				document.getElementById("error1").classList.add("show");
+			}else document.getElementById("error1").classList.remove("show");
+			
+			if (directorElem < 2) {
+				document.getElementById("error2").classList.add("show");
+			}else document.getElementById("error2").classList.remove("show");
+			
+			if (countryElem < 2) {
+				document.getElementById("error3").classList.add("show");
+			}else document.getElementById("error3").classList.remove("show");
+			
+			if (descriptionElem < 15) {
+				document.getElementById("error4").classList.add("show");
+			}else document.getElementById("error4").classList.remove("show");
+			
+			if (movie_lengthElem.length != 8 || movie_lengthElem == "00:00:00") {
+				document.getElementById("error5").classList.add("show");
+			}else document.getElementById("error5").classList.remove("show");
+			
+			if (fileElem < 1) {
+				document.getElementById("error6").classList.add("show");
+			}else document.getElementById("error6").classList.remove("show");
+			
+			if(document.getElementsByClassName('show').length > 0){
+				event.preventDefault();
 			}
 		}
 	</script>

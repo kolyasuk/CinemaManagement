@@ -1,18 +1,13 @@
 package iful.edu.cinema.objects;
 
-import javax.validation.constraints.Size;
-
 public class Cinema {
 
 	private int id;
 
-	@Size(min = 3, max = 20, message = "Name must be between {min} and {max}.")
 	private String name;
 
-	@Size(min = 25, max = 65, message = "Please input correct address like: *вул. Назва Вулиці, номер будинку, місто*")
 	private String address;
 
-	@Size(min = 15, max = 250, message = "Description must be between {min} and {max}.")
 	private String description;
 
 	private byte[] image;

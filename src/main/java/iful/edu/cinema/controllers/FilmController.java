@@ -3,12 +3,9 @@ package iful.edu.cinema.controllers;
 import java.io.IOException;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,20 +37,16 @@ public class FilmController {
 	}
 
 	@RequestMapping(value = "/addingFilm", method = RequestMethod.POST)
-	public ModelAndView addingFilm(@Valid @ModelAttribute("film") Film film, BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
-		System.out.println(bindingResult.getFieldError());
-		if (!bindingResult.hasErrors()) {
-
-			try {
-				film.setImage(file.getBytes());
-				sqliteDao.inputFilm(film);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			return new ModelAndView("redirect:filmList");
+	public ModelAndView addingFilm(@ModelAttribute("film") Film film, @RequestParam("file") MultipartFile file) {
+		try {
+			film.setImage(file.getBytes());
+			sqliteDao.inputFilm(film);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return new ModelAndView("newFilm");
+
+		return new ModelAndView("redirect:filmList");
+
 	}
 
 	@RequestMapping(value = "/filmList")

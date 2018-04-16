@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Film</title>
+<title>${film.name}</title>
 </head>
 <body>
 	<a href="/cinema/"> Back</a><br>
