@@ -59,7 +59,7 @@ public class SessionController {
 		return "newSession";
 	}
 
-	@RequestMapping(value = "/addOrEditSession", method = RequestMethod.POST)
+	@RequestMapping(value = "/processingSession", method = RequestMethod.POST)
 	public String addOREditSession(@ModelAttribute("session") CinemaSession cinemaSession, HttpServletRequest request) {
 		cinemaSession.setShow_date(Date.valueOf(request.getParameter("date")));
 		cinemaSession.setShow_time(request.getParameter("time"));

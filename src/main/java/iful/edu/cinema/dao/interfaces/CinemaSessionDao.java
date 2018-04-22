@@ -15,9 +15,11 @@ public interface CinemaSessionDao {
 
 	void deleteSessionById(int id);
 
-	List<CinemaSession> getCurrentCinemaSessions();
+	List<CinemaSession> getCinemaSessions(boolean type, int page);
 
 	CinemaSession getCinemaSessionByID(int id);
+
+	List<CinemaSession> getSessionBySearch(String fieldName, String value);
 
 	void inputFilm(Film film);
 
@@ -33,6 +35,8 @@ public interface CinemaSessionDao {
 
 	void deleteCinemaById(int id);
 
+	void updateCinema(Cinema cinema);
+
 	Cinema getCinemaByID(int id);
 
 	List<Cinema> getCinemaList();
@@ -40,6 +44,10 @@ public interface CinemaSessionDao {
 	void inputHall(Hall hall);
 
 	void deleteHallById(int id);
+
+	void updateHall(Hall hall);
+
+	Hall getHallByID(int id);
 
 	List<Hall> getHallList();
 

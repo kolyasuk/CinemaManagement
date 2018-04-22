@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+body{
+	width:100%;
+	height:100%;
+	background: url("/cinema/resources/img/background.jpg") 100% 100% no-repeat;
+	background-position: left top;
+    background-attachment: fixed;
+    background-size: cover;
+	
+}
+
 .error {
 	color: red;
 	visibility: hidden;
@@ -13,4 +23,75 @@
 	visibility: visible;
 	opacity: 1;
 	transform: translateX(10px);
+}
+
+.hide-film-image{
+	visibility: hidden;
+}
+
+.show-film-image{
+	visibility: visible;
+	width: 200px;
+	height: 280px;
+}
+
+.hide-cinema-image{
+	visibility: hidden;
+}
+
+.show-cinema-image{
+	visibility: visible;
+	width: 600px;
+	height: 350px;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button-film {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.button-film:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-hall {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.button-hall:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.button-cinema {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #f44336;
+}
+
+.button-cinema:hover {
+    background-color: #f44336;
+    color: white;
+}
+.button-session {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    float: right;
 }

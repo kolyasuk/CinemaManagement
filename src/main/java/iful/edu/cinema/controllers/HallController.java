@@ -30,10 +30,24 @@ public class HallController {
 		return "newHall";
 	}
 
-	@RequestMapping(value = "/addingHall", method = RequestMethod.POST)
+	@RequestMapping(value = "/editHall", method = RequestMethod.GET)
+	public String editHall(@RequestParam("hall_id") int id, ModelMap mp) {
+		Hall hall = sqliteDao.getHallByID(id);
+		List<Cinema> cinemaList = sqliteDao.getCinemaList();
+		mp.addAttribute("cinemaList", cinemaList);
+		mp.addAttribute("hall", hall);
+		return "newHall";
+
+	}
+
+	@RequestMapping(value = "/processingHall", method = RequestMethod.POST)
 	public String addingHall(@Valid @ModelAttribute("hall") Hall hall, BindingResult bindingResult, ModelMap mp) {
 		if (!bindingResult.hasErrors()) {
-			sqliteDao.inputHall(hall);
+			if (hall.getId() > 0) {
+				sqliteDao.updateHall(hall);
+			} else {
+				sqliteDao.inputHall(hall);
+			}
 			return "redirect:hallList";
 		}
 		List<Cinema> cinemaList = sqliteDao.getCinemaList();

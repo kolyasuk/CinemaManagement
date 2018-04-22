@@ -33,12 +33,27 @@ public class CinemaController {
 		return "newCinema";
 	}
 
-	@RequestMapping(value = "/addingCinema", method = RequestMethod.POST)
-	public String addingCinema(@ModelAttribute("cinema") Cinema cinema, @RequestParam("file") MultipartFile file) {
+	@RequestMapping(value = "/editCinema", method = RequestMethod.GET)
+	public String editCinema(@RequestParam("cinema_id") int id, ModelMap mp) {
+		Cinema cinema = sqliteDao.getCinemaByID(id);
+		mp.addAttribute("cinema", cinema);
+		return "newCinema";
+	}
 
+	@RequestMapping(value = "/processingCinema", method = RequestMethod.POST)
+	public String addingCinema(@ModelAttribute("cinema") Cinema cinema, @RequestParam("file") MultipartFile file) {
 		try {
-			cinema.setImage(file.getBytes());
-			sqliteDao.inputCinema(cinema);
+			if (file.isEmpty()) {
+				byte[] i = sqliteDao.getCinemaByID(cinema.getId()).getImage();
+				cinema.setImage(i);
+			} else {
+				cinema.setImage(file.getBytes());
+			}
+			if (cinema.getId() > 0) {
+				sqliteDao.updateCinema(cinema);
+			} else {
+				sqliteDao.inputCinema(cinema);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

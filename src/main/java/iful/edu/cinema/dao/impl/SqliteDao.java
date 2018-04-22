@@ -18,6 +18,7 @@ import iful.edu.cinema.objects.Cinema;
 import iful.edu.cinema.objects.CinemaSession;
 import iful.edu.cinema.objects.Film;
 import iful.edu.cinema.objects.Hall;
+import iful.edu.cinema.utils.PaginationUtils;
 
 @Component("sqliteDao")
 public class SqliteDao implements CinemaSessionDao {
@@ -72,8 +73,13 @@ public class SqliteDao implements CinemaSessionDao {
 	}
 
 	@Override
-	public List<CinemaSession> getCurrentCinemaSessions() {
-		String sql = "select * from sessionView ORDER BY session_date, session_time ASC";
+	public List<CinemaSession> getCinemaSessions(boolean type, int page) {
+		String sql;
+		if (type == false) {
+			sql = "select * from sessionView ORDER BY session_date, session_time ASC limit 10 offset " + PaginationUtils.getOffcet(page);
+		} else {
+			sql = "select * from sessionView  where strftime('%Y-%m-%d', session_date)>= strftime('%Y-%m-%d','now')  ORDER BY session_date, session_time ASC limit 10 offset " + PaginationUtils.getOffcet(page);
+		}
 		return jdbcTemplate.query(sql, new RowMapper() {
 
 			@Override
@@ -276,9 +282,94 @@ public class SqliteDao implements CinemaSessionDao {
 	}
 
 	@Override
-	public void updateFilm(Film film) {
-		// TODO Auto-generated method stub
+	public Hall getHallByID(int id) {
+		String sql = "select * from hall where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+		return jdbcTemplate.queryForObject(sql, paramMap, new RowMapper<Hall>() {
 
+			@Override
+			public Hall mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Hall hall = new Hall();
+				hall.setId(rs.getInt("id"));
+				hall.setName(rs.getString("name"));
+				hall.setFloor(rs.getInt("floor"));
+				hall.setDescription(rs.getString("description"));
+				hall.setCinema_id(rs.getInt("cinema_id"));
+
+				return hall;
+			}
+		});
+	}
+
+	@Override
+	public void updateFilm(Film film) {
+		String sql = "update film set name=:name, year=:year, director=:director, country=:country, movie_length=:movie_length, image=:image, description=:description where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", film.getId());
+		paramMap.addValue("name", film.getName());
+		paramMap.addValue("year", film.getYear());
+		paramMap.addValue("director", film.getDirector());
+		paramMap.addValue("country", film.getCountry());
+		paramMap.addValue("movie_length", film.getMovie_length());
+		paramMap.addValue("description", film.getDescription());
+		paramMap.addValue("image", film.getImage());
+
+		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public void updateCinema(Cinema cinema) {
+		String sql = "update cinema set name=:name, image=:image, address=:address, description=:description where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", cinema.getId());
+
+		paramMap.addValue("name", cinema.getName());
+		paramMap.addValue("image", cinema.getImage());
+		paramMap.addValue("address", cinema.getAddress());
+		paramMap.addValue("description", cinema.getDescription());
+
+		jdbcTemplate.update(sql, paramMap);
+	}
+
+	@Override
+	public void updateHall(Hall hall) {
+		String sql = "update hall set name=:name, floor=:floor, description=:description, cinema_id=:cinema_id where id=:id";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", hall.getId());
+		paramMap.addValue("name", hall.getName());
+		paramMap.addValue("floor", hall.getFloor());
+		paramMap.addValue("description", hall.getDescription());
+		paramMap.addValue("cinema_id", hall.getCinema_id());
+
+		jdbcTemplate.update(sql, paramMap);
+
+	}
+
+	@Override
+	public List<CinemaSession> getSessionBySearch(String fieldName, String value) {
+		String sql;
+		if (fieldName == null) {
+			sql = "select * from sessionView  where film_name like '%" + value + "%' or cinema_name like '%" + value + "%' or hall_name like '%" + value + "%'";
+		} else {
+			sql = "select * from sessionView  where " + fieldName + " like '%" + value + "%'";
+		}
+
+		return jdbcTemplate.query(sql, new RowMapper() {
+
+			@Override
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				CinemaSession session = new CinemaSession();
+				session.setId(rs.getInt("session_id"));
+				session.setCinema_id(rs.getInt("cinema_id"));
+				session.setCinema_name(rs.getString("cinema_name"));
+				session.setFilm_id(rs.getInt("film_id"));
+				session.setFilm_name(rs.getString("film_name"));
+				session.setHall_id(rs.getInt("hall_id"));
+				session.setHall_name(rs.getString("hall_name"));
+				session.setShow_date(Date.valueOf(rs.getString("session_date")));
+				session.setShow_time(rs.getString("session_time"));
+				session.setTicket_price(rs.getInt("ticket_price"));
+
+				return session;
+			}
+		});
 	}
 
 }

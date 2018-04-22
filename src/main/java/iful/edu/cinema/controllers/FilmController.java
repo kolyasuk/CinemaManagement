@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import iful.edu.cinema.dao.impl.SqliteDao;
 import iful.edu.cinema.objects.Film;
@@ -36,17 +35,32 @@ public class FilmController {
 		return "newFilm";
 	}
 
-	@RequestMapping(value = "/addingFilm", method = RequestMethod.POST)
-	public ModelAndView addingFilm(@ModelAttribute("film") Film film, @RequestParam("file") MultipartFile file) {
+	@RequestMapping(value = "/editFilm", method = RequestMethod.GET)
+	public String editFilm(@RequestParam("film_id") int id, ModelMap mp) {
+		Film film = sqliteDao.getFilmByID(id);
+		mp.addAttribute("film", film);
+		return "newFilm";
+	}
+
+	@RequestMapping(value = "/processingFilm", method = RequestMethod.POST)
+	public String addingFilm(@ModelAttribute("film") Film film, @RequestParam("file") MultipartFile file) {
 		try {
-			film.setImage(file.getBytes());
-			sqliteDao.inputFilm(film);
+			if (file.isEmpty()) {
+				byte[] i = sqliteDao.getFilmByID(film.getId()).getImage();
+				film.setImage(i);
+			} else {
+				film.setImage(file.getBytes());
+			}
+			if (film.getId() > 0) {
+				sqliteDao.updateFilm(film);
+			} else {
+				sqliteDao.inputFilm(film);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return new ModelAndView("redirect:filmList");
-
+		return "redirect:filmList";
 	}
 
 	@RequestMapping(value = "/filmList")
