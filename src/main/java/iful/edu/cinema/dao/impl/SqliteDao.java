@@ -23,6 +23,8 @@ import iful.edu.cinema.utils.PaginationUtils;
 @Component("sqliteDao")
 public class SqliteDao implements CinemaSessionDao {
 
+	private static final String ALL_OPTIONS = "all";
+
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -345,7 +347,7 @@ public class SqliteDao implements CinemaSessionDao {
 	@Override
 	public List<CinemaSession> getSessionBySearch(String fieldName, String value) {
 		String sql;
-		if (fieldName == null) {
+		if (fieldName.equals(ALL_OPTIONS)) {
 			sql = "select * from sessionView  where film_name like '%" + value + "%' or cinema_name like '%" + value + "%' or hall_name like '%" + value + "%'";
 		} else {
 			sql = "select * from sessionView  where " + fieldName + " like '%" + value + "%'";

@@ -1,0 +1,129 @@
+body{
+	width:100%;
+	height:100%;
+	background: url("/cinema/resources/img/background.jpg") 100% 100% no-repeat;
+	background-position: left top;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.error {
+	color: red;
+	visibility: hidden;
+	transition: all .3s;
+	opacity: 0;
+	transform: translateX(-10px);
+	display: block;
+}
+
+.show {
+	visibility: visible;
+	opacity: 1;
+	transform: translateX(10px);
+}
+
+.hide-film-image{
+	visibility: hidden;
+}
+
+.show-film-image{
+	visibility: visible;
+	width: 200px;
+	height: 280px;
+}
+
+.hide-cinema-image{
+	visibility: hidden;
+}
+
+.show-cinema-image{
+	visibility: visible;
+	width: 600px;
+	height: 350px;
+}
+.contact-wrapper {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+.envelope {
+  position: relative;
+  display: block;
+  width: 30em;
+  height: 35em;
+  margin: 0 auto;
+}
+.envelope .content {
+  padding: 2em;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 9;
+  transition: all 0.5s ease-in-out;
+  transition-delay: 1s;
+}
+.envelope .wrapper{
+  box-sizing: border-box;
+  background: #d3d3d3;
+  color: #fff;
+}
+
+.envelope .wrapper {
+  padding: 0 2em 2em;
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  transition: all 0.5s ease-in-out;
+  transform-origin: top;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  margin-top: -1px;
+}
+.envelope .wrapper:after {
+  position: absolute;
+  content: '';
+  display: block;
+  opacity: 0;
+  background: #d3d3d3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.envelope form label {
+  display: block;
+  padding-bottom: 0.5em;
+}
+.envelope form input,
+.envelope form textarea {
+  width: 100%;
+  box-shadow: 0;
+  background: transparent;
+  color: #fff;
+}
+.envelope form input {
+  border-width: 0 0 0.1em;
+  border-color: #fff;
+  border-style: solid;
+}
+.envelope form textarea {
+  border: 0.1em solid #fff;
+  border-radius: 0.25em;
+}
+.envelope form .submit {
+  background: #fff;
+  color: #222;
+  text-align: center;
+  padding: 0.5em;
+  box-sizing: border-box;
+  background: #fff;
+  width: 100%;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0.25em;
+  cursor: pointer;
+}
+.envelope form .input {
+  padding-bottom: 1em;
+}

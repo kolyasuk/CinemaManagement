@@ -10,41 +10,6 @@ body{
 	
 }
 
-.error {
-	color: red;
-	visibility: hidden;
-	transition: all .3s;
-	opacity: 0;
-	transform: translateX(-10px);
-	display: block;
-}
-
-.show {
-	visibility: visible;
-	opacity: 1;
-	transform: translateX(10px);
-}
-
-.hide-film-image{
-	visibility: hidden;
-}
-
-.show-film-image{
-	visibility: visible;
-	width: 200px;
-	height: 280px;
-}
-
-.hide-cinema-image{
-	visibility: hidden;
-}
-
-.show-cinema-image{
-	visibility: visible;
-	width: 600px;
-	height: 350px;
-}
-
 .button {
     background-color: #4CAF50; /* Green */
     border: none;

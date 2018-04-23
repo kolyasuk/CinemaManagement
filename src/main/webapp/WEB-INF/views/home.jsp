@@ -20,7 +20,7 @@
 			<div class="row justify-content-end">
 			<form class="form-inline" name="searchForm" action="search" >
 				<select name="searchField">
-					<option disabled selected> -- Виберіть -- </option>
+					<option value="all"> -- Усі варіанти -- </option>
 					<option value="film_name" style="color: #4CAF50;">Фільм</option>
 					<option value="cinema_name" style="color: #f44336;">Кінотеатр</option>
 					<option value="hall_name" style="color: #008CBA;">Зал</option>
