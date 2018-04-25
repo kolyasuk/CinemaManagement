@@ -10,6 +10,18 @@ public class Cinema {
 
 	private String description;
 
+	private String site;
+
+	private String telephone;
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
 	private byte[] image;
 
 	public int getId() {
@@ -50,6 +62,14 @@ public class Cinema {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
 	}
 
 }

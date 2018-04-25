@@ -7,7 +7,20 @@ body{
 	background-position: left top;
     background-attachment: fixed;
     background-size: cover;
+    margin: 0px;
 	
+}
+
+.panel{
+	padding-bottom: 20px;
+}
+
+.form-inline{
+	padding-right: 115px;
+}
+
+.select{
+	margin-right: 10px;
 }
 
 .button {
@@ -60,3 +73,34 @@ body{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     float: right;
 }
+
+.btn{
+	margin-left: 8px;
+}
+
+.crd{
+	position: relative;
+}
+
+.my-btns{
+position: absolute;
+  top: 30px;
+  right: -70px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.film{
+	position: relative;
+}
+
+.details{
+	position: absolute;
+    top: 350px;
+}
+

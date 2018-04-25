@@ -6,28 +6,16 @@ public class Film {
 
 	private String name;
 
-	// @Min(value = 1895, message = "Input correct year")
 	private int year;
 
-	// @Size(min = 2, message = "Input correct director name")
+	private String genre;
+
 	private String director;
 
-	/*
-	 * @Size(min = 2, message = "Input correct country")
-	 * 
-	 * @Pattern(regexp = "^[A-Za-zА-Яа-яЇїІі]*$", message =
-	 * "Must match only letters")
-	 */
 	private String country;
 
-	// @Size(min = 15, message = "Minimum size is 15")
 	private String description;
 
-	/*
-	 * @Size(min = 8, message = "Input correct length")
-	 * 
-	 * @Pattern(regexp = "^[0-9:0-9:0-9]*$", message = "Input like: 01:45:00")
-	 */
 	private String movie_length;
 
 	private byte[] image;
@@ -54,6 +42,14 @@ public class Film {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getDirector() {

@@ -10,11 +10,11 @@
 <link rel="stylesheet" type="text/css"
 	href="${context}/resources/css/form-style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add new film</title>
+<title>Новий фільм</title>
 </head>
 <body>
-	<a href="/cinema/">Home</a>
-	<a href="filmList">Film List</a>
+	<a href="/cinema/">Додому</a>
+	<a href="filmList">Список фільмів</a>
 	<br>
 	<div class="envelope">
 		<div class="content">
@@ -23,60 +23,60 @@
 					commandName="film" enctype="multipart/form-data" method="POST">
 					<div class="wrapper">
 						<form:input path="id" cssStyle="visibility: hidden;" />
-						<form:label path="name">
-							<spring:message text="Name:" />
+						<form:label path="name" title="Поле для вводу назви фільму">
+							<spring:message text="Назва:" />
 						</form:label>
-						<form:input path="name" name="name" />
-						<br> <span id="error0" class="error">Input name,
-							please!</span>
+						<form:input path="name" name="name" title="Поле для вводу назви фільму" />
+						<br> <span id="error0" class="error">Введіть ім'я.</span>
 
-						<form:label path="year">
-							<spring:message text="Year:" />
+						<form:label path="year" title="Поле для вводу року виходу фільму">
+							<spring:message text="Рік виходу:" />
 						</form:label>
-						<form:input path="year" name="year" />
-						<br> <span id="error1" class="error">Input correct
-							year.</span>
-
-						<form:label path="director">
-							<spring:message text="Director:" />
+						<form:input path="year" name="year" title="Поле для вводу року виходу фільму"/>
+						<br> <span id="error1" class="error">Введіть правильний рік.</span>
+							
+						<form:label path="genre" title="Поле для вводу жанру фільму">
+							<spring:message text="Жанр:" />
 						</form:label>
-						<form:input path="director" name="director" />
-						<br> <span id="error2" class="error">Input director,
-							please!</span>
+						<form:input path="genre" name="genre" title="Поле для вводу жанру фільму"/>
+						<br> <span id="error2" class="error">Введіть жанр.</span>
 
-						<form:label path="country">
-							<spring:message text="Country:" />
+						<form:label path="director" title="Поле для вводу режисеру фільму">
+							<spring:message text="Режисер:" />
 						</form:label>
-						<form:input path="country" name="country" />
-						<br> <span id="error3" class="error">Input country,
-							please!</span>
+						<form:input path="director" name="director" title="Поле для вводу режисеру фільму"/>
+						<br> <span id="error3" class="error">Введіть режисера.</span>
 
-						<form:label path="description">
-							<spring:message text="Description:" />
+						<form:label path="country" title="Поле для вводу країни фільму">
+							<spring:message text="Країна:" />
+						</form:label>
+						<form:input path="country" name="country" title="Поле для вводу країни фільму"/>
+						<br> <span id="error4" class="error">Введіть країну.</span>
+
+						<form:label path="description" title="Поле для вводу опису фільму">
+							<spring:message text="Опис:" />
 						</form:label>
 						<form:textarea cols="50" rows="10" path="description"
-							name="description" />
-						<br> <span id="error4" class="error">Minimum size of
-							description is 15.</span>
-						<form:label path="movie_length">
-							<spring:message text="Length:" />
+							name="description" title="Поле для вводу опису фільму" />
+						<br> <span id="error5" class="error">Опис повинен містити не менше 15 символів.</span>
+						<form:label path="movie_length" title="Поле для вводу тривалості фільму">
+							<spring:message text="Тривалість фільму:" />
 						</form:label>
-						<form:input path="movie_length" name="movie_length" />
-						<br> <span id="error5" class="error">Input correct
-							length! Pattern: hh:mm:ss.</span> <img alt="film"
+						<form:input path="movie_length" name="movie_length" title="Поле для вводу тривалості фільму"/>
+						<br> <span id="error6" class="error">Введіть правильну довжину у форматі: hh:mm:ss.</span> <img alt="film"
 							<c:if test="${film.id == 0}">class="hide-film-image"</c:if>
 							id="image"
 							<c:if test="${film.id != 0}">class="show-film-image" src="image/displayFilmImage?id=${film.id}"</c:if>>
 						<br>
 
-						<form:label path="image">
-							<spring:message text="Image:" />
+						<form:label for="file" path="image" title="Поле для вводу банеру фільму">
+							<spring:message text="Зображення:" />
 						</form:label>
-						<input class="submit" type="file" accept="image/*" name="file"
-							onchange="loadFile(event)" /> <br> <span id="error6"
-							class="error">Input image, please!</span>
+						<input class="submit" type="file" accept="image/*" id="file" name="file"
+							onchange="loadFile(event)" title="Поле для вводу банеру фільму"/> <br> <span id="error7"
+							class="error">Завантажте зображення.</span>
 
-						<button class="submit" type="submit" title="Click to add film">
+						<button class="submit" type="submit" title="Клікніть для вводу даних">
 							<spring:message text="Ввести" />
 						</button>
 					</div>
@@ -103,6 +103,7 @@
 		function validate(event) {
 			const nameElem = document.getElementsByName('name')[0].value.length;
 			const yearElem = document.getElementsByName('year')[0].value;
+			const genreElem = document.getElementsByName('genre')[0].value.length;
 			const directorElem = document.getElementsByName('director')[0].value.length;
 			const countryElem = document.getElementsByName('country')[0].value.length;
 			const descriptionElem = document.getElementsByName('description')[0].value.length;
@@ -118,31 +119,36 @@
 				document.getElementById("error1").classList.add("show");
 			} else
 				document.getElementById("error1").classList.remove("show");
-
-			if (directorElem < 2) {
+			
+			if (genreElem < 4) {
 				document.getElementById("error2").classList.add("show");
 			} else
 				document.getElementById("error2").classList.remove("show");
 
-			if (countryElem < 2) {
+			if (directorElem < 2) {
 				document.getElementById("error3").classList.add("show");
 			} else
 				document.getElementById("error3").classList.remove("show");
 
-			if (descriptionElem < 15) {
+			if (countryElem < 2) {
 				document.getElementById("error4").classList.add("show");
 			} else
 				document.getElementById("error4").classList.remove("show");
 
-			if (movie_lengthElem.length != 8 || movie_lengthElem == "00:00:00") {
+			if (descriptionElem < 15) {
 				document.getElementById("error5").classList.add("show");
 			} else
 				document.getElementById("error5").classList.remove("show");
 
-			if (fileElem.classList.contains("hide-film-image")) {
+			if (movie_lengthElem.length != 8 || movie_lengthElem == "00:00:00") {
 				document.getElementById("error6").classList.add("show");
-			} else {
+			} else
 				document.getElementById("error6").classList.remove("show");
+
+			if (fileElem.classList.contains("hide-film-image")) {
+				document.getElementById("error7").classList.add("show");
+			} else {
+				document.getElementById("error7").classList.remove("show");
 			}
 
 			if (document.getElementsByClassName('show').length > 0) {

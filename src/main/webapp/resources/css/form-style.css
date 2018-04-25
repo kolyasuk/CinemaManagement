@@ -5,10 +5,12 @@ body{
 	background-position: left top;
     background-attachment: fixed;
     background-size: cover;
+    margin: 0px;
 }
 
 .error {
 	color: red;
+	font-weight:bold;
 	visibility: hidden;
 	transition: all .3s;
 	opacity: 0;
@@ -38,8 +40,8 @@ body{
 
 .show-cinema-image{
 	visibility: visible;
-	width: 600px;
-	height: 350px;
+	width: 353px;
+	height: 195px;
 }
 .contact-wrapper {
   position: absolute;
@@ -64,7 +66,7 @@ body{
 }
 .envelope .wrapper{
   box-sizing: border-box;
-  background: #d3d3d3;
+  background: #282527;
   color: #fff;
 }
 
@@ -84,7 +86,7 @@ body{
   content: '';
   display: block;
   opacity: 0;
-  background: #d3d3d3;
+  background: #282527;
   top: 0;
   left: 0;
   width: 100%;

@@ -10,11 +10,11 @@
 <link rel="stylesheet" type="text/css"
 	href="${context}/resources/css/form-style.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add new cinema</title>
+<title>Новий кінотеарт</title>
 </head>
 <body>
-	<a href="/cinema/">Home</a>
-	<a href="cinemaList">Cinema List</a>
+	<a href="/cinema/">Додому</a>
+	<a href="cinemaList">Список кінотеатрів</a>
 	<br>
 	<div class="envelope">
 		<div class="content">
@@ -25,39 +25,48 @@
 					<div class="wrapper">
 
 						<form:input path="id" cssStyle="visibility: hidden;" />
-						<form:label path="name">
-							<spring:message text="Name:" />
+						<form:label path="name" title="Поле для вводу назви кінотеатру">
+							<spring:message text="Назва кінотеатру:" />
 						</form:label>
-						<form:input path="name" />
-						<br> <span id="error0" class="error">Name must be
-							between 3 and 15.</span>
+						<form:input path="name" title="Поле для вводу назви кінотеатру"/>
+						<br> <span id="error0" class="error">Введіть коректну назву.</span>
 
-						<form:label path="address">
-							<spring:message text="Address:" />
+						<form:label path="address" title="Поле для вводу адреси кінотеатру">
+							<spring:message text="Адреса:" />
 						</form:label>
-						<form:input path="address" />
-						<br> <span id="error1" class="error">Please, input
-							correct address like: *вул. Назва Вулиці, номер будинку, місто*</span>
+						<form:input path="address" title="Поле для вводу адреси кінотеатру"/>
+						<br> <span id="error1" class="error">Введіть адресу у форматі: *вул. Назва Вулиці, номер будинку, місто*</span>
 
-						<form:label path="description">
-							<spring:message text="Description:" />
+						<form:label path="description" title="Поле для вводу опису кінотеатру">
+							<spring:message text="Опис:" />
 						</form:label>
-						<form:textarea path="description" />
-						<br> <span id="error2" class="error">Description must
-							be between 15 and 150.</span> <img alt="cinema"
+						<form:textarea cols="50" rows="10" path="description" title="Поле для вводу опису кінотеатру"/>
+						<br> <span id="error2" class="error">Опис повинен бути між 15 та 600 символами</span> <img alt="cinema"
 							<c:if test="${cinema.id == 0}">class="hide-cinema-image"</c:if>
 							id="image"
 							<c:if test="${cinema.id != 0}">class="show-cinema-image" src="image/displayCinemaImage?id=${cinema.id}"</c:if>>
 						<br>
-
-						<form:label path="image">
-							<spring:message text="Image:" />
+						
+						<form:label path="site" title="Поле для вводу веб-сайту кінотеатру">
+							<spring:message text="Веб-сайт:" />
 						</form:label>
-						<input class="submit" type="file" accept="image/*" name="file"
-							onchange="loadFile(event)" /> <br> <span id="error3"
-							class="error">Please, input image!</span>
+						<form:input path="site" title="Поле для вводу веб-сайту кінотеатру"/>
+						<br> <span id="error3" class="error">Введіть сайт.</span>
+						
+						<form:label path="telephone" title="Поле для вводу телефону кінотеатру">
+							<spring:message text="Телефон:" />
+						</form:label>
+						<form:input path="telephone" title="Поле для вводу телефону кінотеатру"/>
+						<br> <span id="error4" class="error">Введіть коректний номер телефону.</span>
 
-						<button type="submit" class="submit" title="Click to add cinema">Ввести</button>
+						<form:label for="file"  path="image" title="Поле для вводу зображення кінотеатру">
+							<spring:message text="Зображення:" />
+						</form:label>
+						<input class="submit" type="file" accept="image/*" name="file" id="file"
+							onchange="loadFile(event)" title="Поле для вводу зображення кінотеатру"/> <br> <span id="error5"
+							class="error">Виберіть зображення.</span>
+
+						<button type="submit" class="submit" title="Клікніть для вводу даних">Ввести</button>
 					</div>
 				</form:form>
 			</div>
@@ -80,6 +89,8 @@
 			const nameElem = document.getElementsByName('name')[0].value.length;
 		    const addressElem = document.getElementsByName('address')[0].value.length;
 		    const descElem = document.getElementsByName('description')[0].value.length;
+		    const siteElem = document.getElementsByName('site')[0].value.length;
+		    const telephoneElem = document.getElementsByName('telephone')[0].value.length;
 		    const fileElem = document.getElementById("image");
 		    
 			if (nameElem < 3 || nameElem > 15) {
@@ -94,9 +105,17 @@
 				document.getElementById("error2").classList.add("show");
 			}else document.getElementById("error2").classList.remove("show");
 			
-			if (fileElem.classList.contains("hide-cinema-image")) {
+			if (siteElem < 4 || nameElem > 64) {
 				document.getElementById("error3").classList.add("show");
 			}else document.getElementById("error3").classList.remove("show");
+			
+			if (telephoneElem < 10 || nameElem > 13) {
+				document.getElementById("error4").classList.add("show");
+			}else document.getElementById("error4").classList.remove("show");
+			
+			if (fileElem.classList.contains("hide-cinema-image")) {
+				document.getElementById("error5").classList.add("show");
+			}else document.getElementById("error5").classList.remove("show");
 			
 			if(document.getElementsByClassName('show').length > 0){
 				event.preventDefault();

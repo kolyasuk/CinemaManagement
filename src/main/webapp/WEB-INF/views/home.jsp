@@ -16,38 +16,33 @@
 <body>
 
 	<div class="container">
-		<div class="container">
+		<div class="container panel">
 			<div class="row justify-content-end">
-			<form class="form-inline" name="searchForm" action="search" >
-				<select name="searchField">
-					<option value="all"> -- Усі варіанти -- </option>
-					<option value="film_name" style="color: #4CAF50;">Фільм</option>
-					<option value="cinema_name" style="color: #f44336;">Кінотеатр</option>
-					<option value="hall_name" style="color: #008CBA;">Зал</option>
-				</select>
-			    <input class="form-control mr-sm-2" name="searchValue" type="search" placeholder="Пошук" aria-label="Search">
-			    <button class="button button-session my-2 my-sm-0" type="submit">Пошук</button>
-			  </form>
-				<a href="newFilm" title="Додати фільм"><button
-						class="button button-film">Додати фільм</button></a> <a
-					href="newCinema" title="Додати кінотеарт"><button
-						class="button button-cinema">Додати кінотеарт</button></a> <a
-					href="newHall" title="Додати зал"><button
-						class="button button-hall">Додати зал</button></a>
+				<form class="form-inline" name="searchForm" action="search">
+					<select class="select" name="searchField">
+						<option value="all">-- Пошук по: --</option>
+						<option value="film_name" style="color: #4CAF50;">Фільм</option>
+						<option value="cinema_name" style="color: #f44336;">Кінотеатр</option>
+						<option value="hall_name" style="color: #008CBA;">Зал</option>
+					</select> <input class="form-control mr-sm-2" name="searchValue"
+						type="search" placeholder="Пошук" aria-label="Search">
+					<button class="button button-session my-2 my-sm-0" type="submit">Пошук</button>
+				</form>
+				<a href="newFilm" title="Додати фільм"><button class="button button-film">Додати фільм</button></a> 
+				<a href="newCinema" title="Додати кінотеарт"><button class="button button-cinema">Додати кінотеарт</button></a>
+				<a href="newHall" title="Додати зал"><button class="button button-hall">Додати зал</button></a>
 			</div>
 		</div>
 
 		<h1 style="text-align: center;">
-			Список 
-			<select onchange="location = this.value;">
+			Список <select onchange="location = this.value;">
 				<option
 					<c:if test="${requestScope['javax.servlet.forward.request_uri'] == '/cinema/'}">selected</c:if>
 					value="/cinema/">Поточних</option>
 				<option
 					<c:if test="${requestScope['javax.servlet.forward.request_uri'] != '/cinema/'}">selected</c:if>
 					value="allSessions">Усіх</option>
-			</select>
-			сесій:
+			</select> сесій:
 		</h1>
 
 		<table class="table table-hover">
@@ -94,7 +89,8 @@
 		<ul class="pagination">
 			<h4>Сторінка:</h4>
 
-			<c:if test="${pageCount > param[\"page_id\"] || param[\"page_id\"]==null}">
+			<c:if
+				test="${pageCount > param[\"page_id\"] || param[\"page_id\"]==null}">
 				<c:forEach var="number" begin="1" end="${pageCount}">
 					<li class="page-item"><a class="page-link"
 						href="?page_id=${number}">${number}</a></li>
@@ -102,7 +98,7 @@
 			</c:if>
 
 			<c:if test="${pageCount < param[\"page_id\"]}">
-		  	<c:forEach var="number" begin="1" end="${param[\"page_id\"]}">
+				<c:forEach var="number" begin="1" end="${param[\"page_id\"]}">
 					<li class="page-item"><a class="page-link"
 						href="?page_id=${number}">${number}</a></li>
 				</c:forEach>

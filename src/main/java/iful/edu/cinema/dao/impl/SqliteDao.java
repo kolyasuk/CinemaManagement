@@ -45,6 +45,8 @@ public class SqliteDao implements CinemaSessionDao {
 				cinema.setImage(rs.getBytes("image"));
 				cinema.setAddress(rs.getString("address"));
 				cinema.setDescription(rs.getString("description"));
+				cinema.setSite(rs.getString("site"));
+				cinema.setTelephone(rs.getString("telephone"));
 				return cinema;
 			}
 		});
@@ -69,6 +71,7 @@ public class SqliteDao implements CinemaSessionDao {
 				film.setMovie_length(rs.getString("movie_length"));
 				film.setImage(rs.getBytes("image"));
 				film.setDescription(rs.getString("description"));
+				film.setGenre(rs.getString("genre"));
 				return film;
 			}
 		});
@@ -177,6 +180,7 @@ public class SqliteDao implements CinemaSessionDao {
 				film.setMovie_length(rs.getString("movie_length"));
 				film.setImage(rs.getBytes("image"));
 				film.setDescription(rs.getString("description"));
+				film.setGenre(rs.getString("genre"));
 				return film;
 			}
 		});
@@ -194,7 +198,9 @@ public class SqliteDao implements CinemaSessionDao {
 				cinema.setName(rs.getString("name"));
 				cinema.setImage(rs.getBytes("image"));
 				cinema.setAddress(rs.getString("address"));
+				cinema.setSite(rs.getString("site"));
 				cinema.setDescription(rs.getString("description"));
+				cinema.setTelephone(rs.getString("telephone"));
 				return cinema;
 			}
 		});
@@ -221,7 +227,7 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void inputFilm(Film film) {
-		String sql = "insert into film (name, year, director, country, movie_length, image, description) VALUES (:name, :year, :director, :country, :movie_length, :image, :description)";
+		String sql = "insert into film (name, year, genre, director, country, movie_length, image, description) VALUES (:name, :year, :genre, :director, :country, :movie_length, :image, :description)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		paramMap.addValue("name", film.getName());
 		paramMap.addValue("year", film.getYear());
@@ -230,6 +236,7 @@ public class SqliteDao implements CinemaSessionDao {
 		paramMap.addValue("movie_length", film.getMovie_length());
 		paramMap.addValue("description", film.getDescription());
 		paramMap.addValue("image", film.getImage());
+		paramMap.addValue("genre", film.getGenre());
 
 		jdbcTemplate.update(sql, paramMap);
 	}
@@ -243,13 +250,15 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void inputCinema(Cinema cinema) {
-		String sql = "insert into cinema (name, image, address, description) VALUES (:name, :image, :address, :description)";
+		String sql = "insert into cinema (name, image, address, description, site, telephone) VALUES (:name, :image, :address, :description, :site, :telephone)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 
 		paramMap.addValue("name", cinema.getName());
 		paramMap.addValue("image", cinema.getImage());
 		paramMap.addValue("address", cinema.getAddress());
 		paramMap.addValue("description", cinema.getDescription());
+		paramMap.addValue("site", cinema.getSite());
+		paramMap.addValue("telephone", cinema.getTelephone());
 
 		jdbcTemplate.update(sql, paramMap);
 	}
@@ -305,7 +314,7 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void updateFilm(Film film) {
-		String sql = "update film set name=:name, year=:year, director=:director, country=:country, movie_length=:movie_length, image=:image, description=:description where id=:id";
+		String sql = "update film set name=:name, year=:year, genre=:genre, director=:director, country=:country, movie_length=:movie_length, image=:image, description=:description where id=:id";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", film.getId());
 		paramMap.addValue("name", film.getName());
 		paramMap.addValue("year", film.getYear());
@@ -314,19 +323,21 @@ public class SqliteDao implements CinemaSessionDao {
 		paramMap.addValue("movie_length", film.getMovie_length());
 		paramMap.addValue("description", film.getDescription());
 		paramMap.addValue("image", film.getImage());
+		paramMap.addValue("genre", film.getGenre());
 
 		jdbcTemplate.update(sql, paramMap);
 	}
 
 	@Override
 	public void updateCinema(Cinema cinema) {
-		String sql = "update cinema set name=:name, image=:image, address=:address, description=:description where id=:id";
+		String sql = "update cinema set name=:name, image=:image, address=:address, description=:description, telephone=:telephone where id=:id";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", cinema.getId());
 
 		paramMap.addValue("name", cinema.getName());
 		paramMap.addValue("image", cinema.getImage());
 		paramMap.addValue("address", cinema.getAddress());
 		paramMap.addValue("description", cinema.getDescription());
+		paramMap.addValue("telephone", cinema.getTelephone());
 
 		jdbcTemplate.update(sql, paramMap);
 	}
