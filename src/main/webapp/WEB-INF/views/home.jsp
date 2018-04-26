@@ -14,7 +14,6 @@
 <title>Сеанси</title>
 </head>
 <body>
-
 	<div class="container">
 		<div class="container panel">
 			<div class="row justify-content-end">
@@ -90,7 +89,7 @@
 			<h4>Сторінка:</h4>
 
 			<c:if
-				test="${pageCount => param[\"page_id\"] || param[\"page_id\"]==null}">
+				test="${pageCount > param[\"page_id\"] || param[\"page_id\"]==null}">
 				<c:forEach var="number" begin="1" end="${pageCount}">
 					<li class="page-item"><a class="page-link"
 						href="?page_id=${number}">${number}</a></li>
