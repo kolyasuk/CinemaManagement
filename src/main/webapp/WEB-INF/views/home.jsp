@@ -11,7 +11,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<title>Home</title>
+<title>Сеанси</title>
 </head>
 <body>
 
@@ -90,14 +90,15 @@
 			<h4>Сторінка:</h4>
 
 			<c:if
-				test="${pageCount > param[\"page_id\"] || param[\"page_id\"]==null}">
+				test="${pageCount => param[\"page_id\"] || param[\"page_id\"]==null}">
 				<c:forEach var="number" begin="1" end="${pageCount}">
 					<li class="page-item"><a class="page-link"
 						href="?page_id=${number}">${number}</a></li>
 				</c:forEach>
 			</c:if>
 
-			<c:if test="${pageCount < param[\"page_id\"]}">
+
+			<c:if test="${pageCount <= param[\"page_id\"]}">
 				<c:forEach var="number" begin="1" end="${param[\"page_id\"]}">
 					<li class="page-item"><a class="page-link"
 						href="?page_id=${number}">${number}</a></li>

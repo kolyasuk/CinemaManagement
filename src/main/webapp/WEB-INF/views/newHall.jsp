@@ -36,6 +36,14 @@
 						<form:input path="floor" type="number" min="0" title="Поле для вводу поверху залу"/>
 						<br>
 						<form:errors path="floor" cssClass="error show"></form:errors>
+						
+						<form:label path="seats" title="Поле для вводу розміру залу">
+							<spring:message text="Кількість місць:" />
+						</form:label>
+						<form:input path="seats" type="number" min="0" title="Поле для вводу розміру залу"/>
+						<br>
+						<form:errors path="seats" cssClass="error show"></form:errors>
+						
 
 
 						<form:label path="description" title="Поле для вводу опису залу">

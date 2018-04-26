@@ -15,16 +15,16 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<a href="/cinema/">Home</a><br>
-<h3 style="text-align: center;">Halls:  <a href="newHall" title="Add hall">+</a></h3>
+<a href="/cinema/">Додому</a><br>
+<h3 style="text-align: center;">Зали:  <a href="newHall" title="Додати зал">+</a></h3>
 	<table class="table table-hover" style="width: 80%; margin: auto;">
 		<thead class="thead-dark">
 			<tr >
 				<th scope="col">id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Floor</th>
-				<th scope="col">Description</th>
-				<th scope="col">Cinema_id</th>
+				<th scope="col">Назва</th>
+				<th scope="col">Поверх</th>
+				<th scope="col">Кількість місць</th>
+				<th scope="col">id кінотеатру</th>
 				<th scope="col">#</th>
 			</tr>
 		</thead>
@@ -34,7 +34,7 @@
 					<th scope="row">${hall.id}</th>
 					<td>${hall.name}</td>
 					<td>${hall.floor}</td>
-					<td>${hall.description}</td>
+					<td>${hall.seats}</td>
 					<td>${hall.cinema_id}</td>
 					<td><a href="deleteHall?hall_id=${hall.id}" title="Видалити зал"><img alt="delete" width="24px"
 								src="${context}/resources/img/delete-image.png"></a>

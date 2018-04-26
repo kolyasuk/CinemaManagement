@@ -15,7 +15,8 @@
 <title>${cinema.name}</title>
 </head>
 <body>
-	<a href="/cinema/"> Домашня сторінка</a>
+	<a href="/cinema/">Додому</a>
+	<a href="cinemaList" title="Список кінотеатрів">Список кінотеатрів</a>
 
 	<div class="container">
 		<div class="col-sm-6">

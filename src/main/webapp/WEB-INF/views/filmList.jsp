@@ -15,18 +15,18 @@
 <title>Список фільмів</title>
 </head>
 <body>
-<a href="/cinema/">Home</a><br>
-<h3 style="text-align: center;">Films:  <a href="newFilm" title="Add film">+</a></h3>
+<a href="/cinema/">Додому</a><br>
+<h3 style="text-align: center;">Фільми:  <a href="newFilm" title="Додати фільм">+</a></h3>
 	<table class="table table-hover" style="width: 80%; margin: auto;">
 		<thead class="thead-dark">
 			<tr >
 				<th scope="col">id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Year</th>
-				<th scope="col">Genre</th>
-				<th scope="col">Director</th>
-				<th scope="col">Country</th>
-				<th scope="col">Length</th>
+				<th scope="col">Назва</th>
+				<th scope="col">Рік</th>
+				<th scope="col">Жанр</th>
+				<th scope="col">Режисер</th>
+				<th scope="col">Країна</th>
+				<th scope="col">Тривалість</th>
 				<th scope="col">#</th>
 			</tr>
 		</thead>

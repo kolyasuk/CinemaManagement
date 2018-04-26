@@ -15,7 +15,8 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<a href="/cinema/"> Домашня сторінка</a>
+	<a href="/cinema/">Додому</a>
+	<a href="filmList" title="Список фільмів">Список фільмів</a>
 	<br>
 
 	<div class="container film" style="width: 750px;">
@@ -23,19 +24,18 @@
 			<div class="card-body">
 				<h3 class="mt-0">${film.name}</h3>
 				<div class="media">
-
-					<img class="mr-3" src="image/displayFilmImage?id=${film.id}"
+					<img class="mr-3 baner" src="image/displayFilmImage?id=${film.id}"
 						width="200" height="280" alt="Generic placeholder image">
-					<div class="details">
+					<div class="media-body">
+						<span>${film.description}</span>
+					</div>
+				</div>
+				<div class="details">
 						<span><b>Рік випуску:</b> ${film.year}</span><br> <span><b>Країна:</b>
 							${film.country}</span><br> <span><b>Жанр:</b> ${film.genre}</span><br>
 						<span><b>Тривалість:</b> ${film.movie_length}</span><br> <span><b>Режисер:</b>
 							${film.director}</span><br>
 					</div>
-					<div class="media-body">
-						<span>${film.description}</span>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div class="row my-btns" style="right: -85px;">

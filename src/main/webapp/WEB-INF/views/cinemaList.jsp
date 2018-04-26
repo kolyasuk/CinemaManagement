@@ -15,16 +15,16 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<a href="/cinema/">Домашня сторінка</a><br>
-<h3 style="text-align: center;">Cinemas:  <a href="newCinema" title="Add cinema">+</a></h3>
+<a href="/cinema/">Додому</a><br>
+<h3 style="text-align: center;">Кінотеатри:  <a href="newCinema" title="Додати кінотеатр">+</a></h3>
 	<table class="table table-hover" style="width: 80%; margin: auto;">
 		<thead class="thead-dark">
 			<tr >
 				<th scope="col">id</th>
-				<th scope="col">Name</th>
-				<th scope="col">Telephone</th>
-				<th scope="col">Address</th>
-				<th scope="col">Site</th>
+				<th scope="col">Назва</th>
+				<th scope="col">Номер телефону</th>
+				<th scope="col">Адреса</th>
+				<th scope="col">Веб-сайт</th>
 				<th scope="col">#</th>
 			</tr>
 		</thead>

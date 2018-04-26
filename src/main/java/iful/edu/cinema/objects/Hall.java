@@ -19,6 +19,17 @@ public class Hall {
 	@Min(value = 1, message = "Select cinema, please.")
 	private int cinema_id;
 
+	@Min(value = 10, message = "Select number of seats, please.")
+	private int seats;
+
+	public int getSeats() {
+		return seats;
+	}
+
+	public void setSeats(int seats) {
+		this.seats = seats;
+	}
+
 	public int getId() {
 		return id;
 	}

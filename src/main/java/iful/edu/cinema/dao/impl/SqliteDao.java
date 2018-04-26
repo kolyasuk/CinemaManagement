@@ -219,6 +219,7 @@ public class SqliteDao implements CinemaSessionDao {
 				hall.setFloor(rs.getInt("floor"));
 				hall.setDescription(rs.getString("description"));
 				hall.setCinema_id(rs.getInt("cinema_id"));
+				hall.setSeats(rs.getInt("seats"));
 
 				return hall;
 			}
@@ -273,12 +274,13 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void inputHall(Hall hall) {
-		String sql = "insert into hall (name, floor, description, cinema_id) VALUES (:name, :floor, :description, :cinema_id)";
+		String sql = "insert into hall (name, floor, description, cinema_id, seats) VALUES (:name, :floor, :description, :cinema_id, :seats)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		paramMap.addValue("name", hall.getName());
 		paramMap.addValue("floor", hall.getFloor());
 		paramMap.addValue("description", hall.getDescription());
 		paramMap.addValue("cinema_id", hall.getCinema_id());
+		paramMap.addValue("seats", hall.getSeats());
 
 		jdbcTemplate.update(sql, paramMap);
 
@@ -306,6 +308,7 @@ public class SqliteDao implements CinemaSessionDao {
 				hall.setFloor(rs.getInt("floor"));
 				hall.setDescription(rs.getString("description"));
 				hall.setCinema_id(rs.getInt("cinema_id"));
+				hall.setSeats(rs.getInt("seats"));
 
 				return hall;
 			}
@@ -344,12 +347,13 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void updateHall(Hall hall) {
-		String sql = "update hall set name=:name, floor=:floor, description=:description, cinema_id=:cinema_id where id=:id";
+		String sql = "update hall set name=:name, floor=:floor, description=:description, cinema_id=:cinema_id, seats=:seats where id=:id";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", hall.getId());
 		paramMap.addValue("name", hall.getName());
 		paramMap.addValue("floor", hall.getFloor());
 		paramMap.addValue("description", hall.getDescription());
 		paramMap.addValue("cinema_id", hall.getCinema_id());
+		paramMap.addValue("seats", hall.getSeats());
 
 		jdbcTemplate.update(sql, paramMap);
 
