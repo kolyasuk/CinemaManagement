@@ -42,7 +42,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/search")
 	public String search(HttpServletRequest request, ModelMap mp) {
-		List<CinemaSession> list = sqliteDao.getSessionBySearch(request.getParameter("searchField"), request.getParameter("searchValue"));
+		StringBuilder sb = new StringBuilder(request.getParameter("searchValue"));
+		if (sb.toString().contains("'")) {
+			sb.insert(sb.indexOf("'"), "'");
+		}
+
+		List<CinemaSession> list = sqliteDao.getSessionBySearch(request.getParameter("searchField"), sb.toString());
 		mp.addAttribute("list", list);
 		return "searchResult";
 	}

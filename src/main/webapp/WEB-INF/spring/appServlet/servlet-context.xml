@@ -29,8 +29,12 @@
 	<context:component-scan base-package="iful.edu.cinema" />
 
 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-	p:driverClassName="org.sqlite.JDBC" p:url="jdbc:sqlite:C:\Users\dziob\eclipse-workspace\CinemaManagement\db\CinemaMgmt.db" p:username="" p:password=""/>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.sqlite.JDBC"/>
+		<property name="url" value="jdbc:sqlite:C:\Users\dziob\eclipse-workspace\CinemaManagement\db\CinemaMgmt.db"/>
+		<property name="username" value=""/>
+		<property name="password" value=""/>
+	</bean>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		

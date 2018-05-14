@@ -12,11 +12,11 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	crossorigin="anonymous">
-<title>Search result</title>
+<title>Результати пошуку</title>
 </head>
 <body>
 <a href="/cinema/">Home</a><br>
-<h1 style="text-align: center;">Знайдені сесії(${fn:length(list)}):</h1>
+<h1 style="text-align: center;">Ви шукали: "<b><c:out value="${param.searchValue}" /></b>" | Знайдено сесій(${fn:length(list)}):</h1>
 	<div class="container">
 		<table class="table table-hover">
 				<thead class="thead-dark">
@@ -37,6 +37,7 @@
 					</tr>
 				</thead>
 				<tbody>
+	
 					<c:forEach var="item" items="${list}">
 						<tr>
 							<th scope="row">${item.id}</th>
@@ -56,6 +57,9 @@
 					</c:forEach>
 				</tbody>
 			</table>
+				<c:if test="${fn:length(list) == 0}">
+					<h2 style="text-align: center;">Немає результатів</h2>
+				</c:if>
 		</div>
 
 </body>

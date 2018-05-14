@@ -38,7 +38,7 @@
 					<td><a href="${cinema.site}" target="_blank" title="Веб-сайт кінотеатру ${cinema.name}">${cinema.site}</a></td>
 					<td><a href="deleteCinema?cinema_id=${cinema.id}" title="Видалити кінотеатр"><img alt="delete" width="24px"
 								src="${context}/resources/img/delete-image.png"></a>
-						<a href="editСinema?cinema_id=${cinema.id}" title="Редагувати кінотеатр"><img alt="edit" width="24px"
+						<a href="editCinema?cinema_id=${cinema.id}" title="Редагувати кінотеатр"><img alt="edit" width="24px"
 								src="${context}/resources/img/edit-image.png"></a>
 					</td>
 				</tr>

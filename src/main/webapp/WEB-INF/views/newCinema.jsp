@@ -41,11 +41,7 @@
 							<spring:message text="Опис:" />
 						</form:label>
 						<form:textarea cols="50" rows="10" path="description" title="Поле для вводу опису кінотеатру"/>
-						<br> <span id="error2" class="error">Опис повинен бути між 15 та 600 символами</span> <img alt="cinema"
-							<c:if test="${cinema.id == 0}">class="hide-cinema-image"</c:if>
-							id="image"
-							<c:if test="${cinema.id != 0}">class="show-cinema-image" src="image/displayCinemaImage?id=${cinema.id}"</c:if>>
-						<br>
+						<br> <span id="error2" class="error">Опис повинен бути між 15 та 600 символами</span> 
 						
 						<form:label path="site" title="Поле для вводу веб-сайту кінотеатру">
 							<spring:message text="Веб-сайт:" />
@@ -58,6 +54,12 @@
 						</form:label>
 						<form:input path="telephone" title="Поле для вводу телефону кінотеатру"/>
 						<br> <span id="error4" class="error">Введіть коректний номер телефону.</span>
+						
+						<img alt="cinema"
+							<c:if test="${cinema.id == 0}">class="hide-cinema-image"</c:if>
+							id="image"
+							<c:if test="${cinema.id != 0}">class="show-cinema-image" src="image/displayCinemaImage?id=${cinema.id}"</c:if>>
+						<br>
 
 						<form:label for="file"  path="image" title="Поле для вводу зображення кінотеатру">
 							<spring:message text="Зображення:" />
