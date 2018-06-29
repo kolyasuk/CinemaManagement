@@ -30,6 +30,7 @@
 				<a href="newFilm" title="Додати фільм"><button class="button button-film">Додати фільм</button></a> 
 				<a href="newCinema" title="Додати кінотеарт"><button class="button button-cinema">Додати кінотеарт</button></a>
 				<a href="newHall" title="Додати зал"><button class="button button-hall">Додати зал</button></a>
+				<a href="parse" title="Оновити"><button class="button button-hall">Оновити</button></a>
 			</div>
 		</div>
 

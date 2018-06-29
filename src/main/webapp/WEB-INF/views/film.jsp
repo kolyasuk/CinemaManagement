@@ -43,5 +43,12 @@
 			<a class="btn btn-primary" title="Редагувати фільм" href="editFilm?film_id=${film.id}">Редагувати</a>
 		</div>
 	</div>
+	
+	<c:if test="${film.trailer_URL != null}">
+		<iframe width="640" height="315" src="${film.trailer_URL}" style="margin: 45px auto; display: block;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+	</c:if>
+	<c:if test="${film.trailer_URL == null}">
+		<p style="text-align:center; font-weight: bold; padding-top: 150px;">Трейлер до цього фільму відсутний.</p>
+	</c:if>
 </body>
 </html>

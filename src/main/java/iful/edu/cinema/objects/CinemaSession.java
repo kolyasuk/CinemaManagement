@@ -13,7 +13,7 @@ public class CinemaSession {
 	private String hall_name;
 	private Date show_date;
 	private String show_time;
-	private int ticket_price;
+	private String ticket_price;
 
 	public int getId() {
 		return id;
@@ -55,11 +55,11 @@ public class CinemaSession {
 		this.show_time = show_time;
 	}
 
-	public int getTicket_price() {
+	public String getTicket_price() {
 		return ticket_price;
 	}
 
-	public void setTicket_price(int ticket_price) {
+	public void setTicket_price(String ticket_price) {
 		this.ticket_price = ticket_price;
 	}
 

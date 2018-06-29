@@ -69,6 +69,32 @@ public class SqliteDao implements CinemaSessionDao {
 				film.setCountry(rs.getString("country"));
 				film.setMovie_length(rs.getString("movie_length"));
 				film.setImage(rs.getBytes("image"));
+				film.setTrailer_URL(rs.getString("trailer_URL"));
+				film.setDescription(rs.getString("description"));
+				film.setGenre(rs.getString("genre"));
+				return film;
+			}
+		});
+	}
+
+	@Override
+	public List<Film> getFilmByName(String name) {
+		String sql = "select * from film where name=:name";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("name", name);
+
+		return jdbcTemplate.query(sql, paramMap, new RowMapper<Film>() {
+
+			@Override
+			public Film mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Film film = new Film();
+				film.setId(rs.getInt("id"));
+				film.setName(rs.getString("name"));
+				film.setYear(rs.getInt("year"));
+				film.setDirector(rs.getString("director"));
+				film.setCountry(rs.getString("country"));
+				film.setMovie_length(rs.getString("movie_length"));
+				film.setImage(rs.getBytes("image"));
+				film.setTrailer_URL(rs.getString("trailer_URL"));
 				film.setDescription(rs.getString("description"));
 				film.setGenre(rs.getString("genre"));
 				return film;
@@ -80,6 +106,27 @@ public class SqliteDao implements CinemaSessionDao {
 	public Hall getHallByID(int id) {
 		String sql = "select * from hall where id=:id";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", id);
+		return jdbcTemplate.queryForObject(sql, paramMap, new RowMapper<Hall>() {
+
+			@Override
+			public Hall mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Hall hall = new Hall();
+				hall.setId(rs.getInt("id"));
+				hall.setName(rs.getString("name"));
+				hall.setFloor(rs.getInt("floor"));
+				hall.setDescription(rs.getString("description"));
+				hall.setCinema_id(rs.getInt("cinema_id"));
+				hall.setSeats(rs.getInt("seats"));
+
+				return hall;
+			}
+		});
+	}
+
+	@Override
+	public Hall getHallByName(String name) {
+		String sql = "select * from hall where name=:name";
+		MapSqlParameterSource paramMap = new MapSqlParameterSource("name", name);
 		return jdbcTemplate.queryForObject(sql, paramMap, new RowMapper<Hall>() {
 
 			@Override
@@ -113,7 +160,7 @@ public class SqliteDao implements CinemaSessionDao {
 				session.setHall_id(rs.getInt("hall_id"));
 				session.setShow_date(Date.valueOf(rs.getString("date")));
 				session.setShow_time(rs.getString("time"));
-				session.setTicket_price(rs.getInt("ticket_price"));
+				session.setTicket_price(rs.getString("ticket_price"));
 
 				return session;
 			}
@@ -161,7 +208,7 @@ public class SqliteDao implements CinemaSessionDao {
 				session.setHall_name(rs.getString("hall_name"));
 				session.setShow_date(Date.valueOf(rs.getString("session_date")));
 				session.setShow_time(rs.getString("session_time"));
-				session.setTicket_price(rs.getInt("ticket_price"));
+				session.setTicket_price(rs.getString("ticket_price"));
 				return session;
 			}
 		});
@@ -182,6 +229,7 @@ public class SqliteDao implements CinemaSessionDao {
 				film.setCountry(rs.getString("country"));
 				film.setMovie_length(rs.getString("movie_length"));
 				film.setImage(rs.getBytes("image"));
+				film.setTrailer_URL(rs.getString("trailer_URL"));
 				film.setDescription(rs.getString("description"));
 				film.setGenre(rs.getString("genre"));
 				return film;
@@ -213,9 +261,9 @@ public class SqliteDao implements CinemaSessionDao {
 	public List<CinemaSession> getSessionBySearch(String fieldName, String value) {
 		String sql = "";
 		if (fieldName.equals(ALL_OPTIONS)) {
-			sql = "select * from sessionView  where film_name like '%" + value + "%' or cinema_name"
-					+ " like '%" + value + "%' or hall_name like '%" + value + "%'";
-		} else sql = "select * from sessionView  where " + fieldName + " like '%" + value + "%'";
+			sql = "select * from sessionView  where film_name like '%" + value + "%' or cinema_name" + " like '%" + value + "%' or hall_name like '%" + value + "%'";
+		} else
+			sql = "select * from sessionView  where " + fieldName + " like '%" + value + "%'";
 		return jdbcTemplate.query(sql, new RowMapper() {
 			@Override
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -229,11 +277,12 @@ public class SqliteDao implements CinemaSessionDao {
 				session.setHall_name(rs.getString("hall_name"));
 				session.setShow_date(Date.valueOf(rs.getString("session_date")));
 				session.setShow_time(rs.getString("session_time"));
-				session.setTicket_price(rs.getInt("ticket_price"));
+				session.setTicket_price(rs.getString("ticket_price"));
 
 				return session;
 			}
-		});}
+		});
+	}
 
 	@Override
 	public void inputCinema(Cinema cinema) {
@@ -265,7 +314,7 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void inputFilm(Film film) {
-		String sql = "insert into film (name, year, genre, director, country, movie_length, image, description) VALUES (:name, :year, :genre, :director, :country, :movie_length, :image, :description)";
+		String sql = "insert into film (name, year, genre, director, country, movie_length, image, trailer_URL, description) VALUES (:name, :year, :genre, :director, :country, :movie_length, :image, :trailer_URL, :description)";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource();
 		paramMap.addValue("name", film.getName());
 		paramMap.addValue("year", film.getYear());
@@ -274,6 +323,7 @@ public class SqliteDao implements CinemaSessionDao {
 		paramMap.addValue("movie_length", film.getMovie_length());
 		paramMap.addValue("description", film.getDescription());
 		paramMap.addValue("image", film.getImage());
+		paramMap.addValue("trailer_URL", film.getTrailer_URL());
 		paramMap.addValue("genre", film.getGenre());
 
 		jdbcTemplate.update(sql, paramMap);
@@ -320,7 +370,7 @@ public class SqliteDao implements CinemaSessionDao {
 
 	@Override
 	public void updateFilm(Film film) {
-		String sql = "update film set name=:name, year=:year, genre=:genre, director=:director, country=:country, movie_length=:movie_length, image=:image, description=:description where id=:id";
+		String sql = "update film set name=:name, year=:year, genre=:genre, director=:director, country=:country, movie_length=:movie_length, image=:image, trailer_URL=:trailer_URL, description=:description where id=:id";
 		MapSqlParameterSource paramMap = new MapSqlParameterSource("id", film.getId());
 		paramMap.addValue("name", film.getName());
 		paramMap.addValue("year", film.getYear());
@@ -329,6 +379,7 @@ public class SqliteDao implements CinemaSessionDao {
 		paramMap.addValue("movie_length", film.getMovie_length());
 		paramMap.addValue("description", film.getDescription());
 		paramMap.addValue("image", film.getImage());
+		paramMap.addValue("trailer_URL", film.getTrailer_URL());
 		paramMap.addValue("genre", film.getGenre());
 
 		jdbcTemplate.update(sql, paramMap);

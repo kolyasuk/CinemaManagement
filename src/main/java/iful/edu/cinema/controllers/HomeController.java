@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import iful.edu.cinema.dao.impl.SqliteDao;
 import iful.edu.cinema.objects.CinemaSession;
+import iful.edu.cinema.utils.ParseUtils;
 
 @Controller
 public class HomeController {
+
 	public static final int ENTRIES_COUNT = 10;
 	public int pageCount = 1;
+
 	@Autowired
 	private SqliteDao sqliteDao;
 
@@ -28,6 +31,14 @@ public class HomeController {
 		mp.addAttribute("pageCount", pageCount);
 		mp.addAttribute("list", list);
 		return "home";
+	}
+
+	@RequestMapping(value = "/parse")
+	public String parse() {
+		ParseUtils pu = new ParseUtils(sqliteDao);
+		pu.parseLumere("http://www.kinolumiere.com/");
+		pu.parseKosmos("http://liniakino.com/showtimes/kosmos");
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/allSessions")

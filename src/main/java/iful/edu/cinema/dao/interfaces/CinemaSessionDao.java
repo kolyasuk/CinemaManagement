@@ -29,6 +29,8 @@ public interface CinemaSessionDao {
 
 	Film getFilmByID(int id);
 
+	List<Film> getFilmByName(String name);
+
 	List<Film> getFilmList();
 
 	void inputCinema(Cinema cinema);
@@ -48,6 +50,8 @@ public interface CinemaSessionDao {
 	void updateHall(Hall hall);
 
 	Hall getHallByID(int id);
+
+	Hall getHallByName(String name);
 
 	List<Hall> getHallList();
 

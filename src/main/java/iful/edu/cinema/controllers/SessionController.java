@@ -1,7 +1,6 @@
 package iful.edu.cinema.controllers;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,13 +18,10 @@ import iful.edu.cinema.objects.Cinema;
 import iful.edu.cinema.objects.CinemaSession;
 import iful.edu.cinema.objects.Film;
 import iful.edu.cinema.objects.Hall;
+import iful.edu.cinema.utils.Constants;
 
 @Controller
 public class SessionController {
-
-	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
-	private static final Date CURRENT_DATE = Date.valueOf(DATE_FORMATTER.format(new java.util.Date()));
-	private static final String CURRENT_TIME = "08:00";
 
 	@Autowired
 	private SqliteDao sqliteDao;
@@ -39,9 +35,9 @@ public class SessionController {
 		mp.addAttribute("cinemaList", cinemaList);
 		mp.addAttribute("hallList", hallList);
 
-		cinemaSession.setShow_date(CURRENT_DATE);
+		cinemaSession.setShow_date(Constants.CURRENT_DATE);
 
-		cinemaSession.setShow_time(CURRENT_TIME);
+		cinemaSession.setShow_time(Constants.CURRENT_TIME);
 
 		return "newSession";
 	}
@@ -63,7 +59,7 @@ public class SessionController {
 	public String addOREditSession(@ModelAttribute("session") CinemaSession cinemaSession, HttpServletRequest request) {
 		cinemaSession.setShow_date(Date.valueOf(request.getParameter("date")));
 		cinemaSession.setShow_time(request.getParameter("time"));
-		cinemaSession.setTicket_price(Integer.valueOf(request.getParameter("ticket_price")));
+		cinemaSession.setTicket_price(request.getParameter("ticket_price"));
 		if (cinemaSession.getId() > 0) {
 			sqliteDao.updateSession(cinemaSession);
 		} else {

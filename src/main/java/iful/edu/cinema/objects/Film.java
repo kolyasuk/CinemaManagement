@@ -18,6 +18,8 @@ public class Film {
 
 	private String movie_length;
 
+	private String trailer_URL;
+
 	private byte[] image;
 
 	public int getId() {
@@ -90,6 +92,30 @@ public class Film {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getTrailer_URL() {
+		return trailer_URL;
+	}
+
+	public void setTrailer_URL(String trailer_URL) {
+		this.trailer_URL = trailer_URL;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		return this.toString().equals(obj.toString());
+	}
+
+	@Override
+	public String toString() {
+		String imageData = image != null ? image.toString() : "null";
+		String result = "";
+		result += "id=" + id + ", name=" + String.valueOf(name) + ", country=" + String.valueOf(country) + ", description=" + String.valueOf(description) + ", director=" + String.valueOf(director) + ", genre=" + String.valueOf(genre)
+				+ ", movie_length=" + String.valueOf(movie_length) + ", trailer_URL=" + String.valueOf(trailer_URL) + ", year=" + String.valueOf(year) + ", image=" + imageData;
+		return result;
 	}
 
 }
